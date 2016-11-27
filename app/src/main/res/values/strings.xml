@@ -4,8 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
-    <!--  国雄的-->
+<!--  国雄的-->
     <string name="login_top">CarPool</string>
     <string name="login_num">账号：</string>
     <string name="login_pass">密码：</string>
@@ -28,7 +27,31 @@
     <string name="register_test">验证码:</string>
     <string name="register_again_test_send">重新发送</string>
     <string name="register_sure">确定</string>
-
-    <!--国雄的-->
+    <string name="main_start">出发地</string>
+    <string name="main_end">目的地</string>
+    <string name="main_time">出发时间:</string>
+    <string name="main_sure">搜索</string>
+    <string name="my_info_text1">姓名:</string>
+    <string name="my_info_text2">昵称:</string>
+    <string name="my_info_text3">性别:</string>
+    <string name="my_info_text4">手机号:</string>
+    <string name="my_info_text5">微信号:</string>
+    <string name="my_info_text6">Q Q 号:</string>
+    <string name="my_info_text7">信用度:</string>
+    <string name="my_info_text8">自我介绍:</string>
+    <string name="publish_text1">日期:</string>
+    <string name="publish_text2">出发地:</string>
+    <string name="publish_text3">目的地:</string>
+    <string name="publish_text4">出发时间:</string>
+    <string name="publish_text5">包车价格:</string>
+    <string name="publish_text6">总人数:</string>
+    <string name="publish_text7">已有人数:</string>
+    <string name="publish_text8">联系方式:</string>
+    <string name="publish_text9">详细信息:</string>
+    <string name="publish_sure">发布</string>
+    <string name="my_have_publish">我发布的拼单</string>
+    <string name="my_have_join">我加入的拼单</string>
+    <string name="my_have_done">我经历过的拼单</string>
+<!--国雄的-->
 
 </resources>

@@ -1,13 +1,16 @@
-package com.example.sheng.carpool;
+package com.example.sheng.carpool.activities;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Register extends AppCompatActivity {
+import com.example.sheng.carpool.R;
+
+public class Forget extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_forget);
     }
 }

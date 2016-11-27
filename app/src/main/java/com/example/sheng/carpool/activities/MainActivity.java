@@ -1,4 +1,4 @@
-package com.example.sheng.carpool;
+package com.example.sheng.carpool.activities;
 
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.example.sheng.carpool.R;
 
 public class MainActivity extends AppCompatActivity {
 
