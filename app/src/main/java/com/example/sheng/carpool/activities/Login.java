@@ -66,8 +66,7 @@ public class Login extends Activity {
     private void login(){
         str_login_num_input = login_num_input.getText().toString();
         str_login_pass_input = login_pass_input.getText().toString();
-        String url="http://172.22.5.200:8080/CarpoolWeb_war_exploded/net-work";
-        String url2="http://172.22.5.200:8080/CarpoolWeb_war_exploded/test4";
+        final String url= PublicData.loginServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
 /*get请求
         StringRequest stringRequest = new StringRequest(Request.Method.GET,"https://api.thinkpage.cn/v3/weather/now.json?key=rot2enzrehaztkdk&location=guangzhou&language=zh-Hans&unit=c",
@@ -83,25 +82,6 @@ public class Login extends Activity {
                 Log.e("cylog", error.getMessage(),error);
             }
 
-        });
-*/
-/*
-        Map<String,String> map=new HashMap<String,String>();
-        //传一个参数，user=zhangqi
-        map.put("user", "zhangqi");
-        JSONObject params=new JSONObject(map);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                url, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
         });
 */
 /*
@@ -129,6 +109,7 @@ public class Login extends Activity {
 
             }
         });
+        mRequestQueue.add(jsonArrayRequest);
 */
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
@@ -136,12 +117,6 @@ public class Login extends Activity {
             public void onResponse(String response) {
                 if(response.equals(PublicData.TRUE_RETURN)){
                     finish();
-                    /*
-                    Intent intent1 = new Intent();
-                    intent1.setClass(Login.this,MainActivity.class);
-                    Login.this.startActivity(intent1);
-                    finish();
-                    */
                 }
                 Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
@@ -149,6 +124,24 @@ public class Login extends Activity {
             },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Login.this,"没网络",Toast.LENGTH_LONG).show();
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(data.equals(PublicData.TRUE_RETURN)){
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    login_num_input.setText("请连接网络使用！");
+                }
                 Log.e("TAG", error.getMessage(), error);
             }
             }){
@@ -156,15 +149,13 @@ public class Login extends Activity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
-                map.put("type","register");
+                map.put("type","login");
                 map.put("account",str_login_num_input);
                 map.put("password",str_login_pass_input);
                 return map;
             }
             };
-        //3、将请求添加进请求队列
         mRequestQueue.add(stringRequest);
-        //mRequestQueue.add(jsonArrayRequest);
     }
 /*
     public String parseJSON(String jsonStream){

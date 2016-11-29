@@ -12,6 +12,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,10 +22,11 @@ import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.R;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Register extends AppCompatActivity {
+public class Register extends Activity {
 
     private EditText register_num_input;
     private EditText register_password_input;
@@ -34,7 +36,7 @@ public class Register extends AppCompatActivity {
     private Button register_sure;
     private String str_register_num_input, str_register_password_input;
     private String str_register_again_password_input , str_register_test_input;
-
+    private String f1, f2;
     private RequestQueue mRequestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,6 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         componentInit();
     }
-
     //组件初始化，为组件监听
     private void componentInit(){
         register_num_input = (EditText)findViewById(R.id.login_num_input);
@@ -56,18 +57,15 @@ public class Register extends AppCompatActivity {
     }
     //
     private void register(){
-        str_register_num_input = register_num_input.getText().toString();
-        str_register_password_input = register_password_input.getText().toString();
-        str_register_again_password_input = register_again_password_input.getText().toString();
-        String url="http://172.22.5.200:8080/CarpoolWeb_war_exploded/net-work";
-        String url2="http://172.22.5.200:8080/CarpoolWeb_war_exploded/test4";
+        f1 = register_num_input.getText().toString();
+        f2 = register_password_input.getText().toString();
+        final String url= PublicData.registerServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals(PublicData.TRUE_RETURN)){
-                    finish();
                     /*
                     Intent intent1 = new Intent();
                     intent1.setClass(Login.this,MainActivity.class);
@@ -75,30 +73,27 @@ public class Register extends AppCompatActivity {
                     finish();
                     */
                 }
-                Toast.makeText(Register.this,response,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"请链接网络使用",Toast.LENGTH_LONG);
                 Log.e("TAG", error.getMessage(), error);
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","register");
-                map.put("account",str_register_num_input);
-                map.put("password",str_register_password_input);
+                map.put("account",f1);
+                map.put("password",f2);
                 return map;
             }
         };
-        //3、将请求添加进请求队列
         mRequestQueue.add(stringRequest);
-        //mRequestQueue.add(jsonArrayRequest);
     }
-
     class buttonListener1 implements View.OnClickListener {
         public void onClick(View v){
             switch (v.getId()){
@@ -106,7 +101,6 @@ public class Register extends AppCompatActivity {
                     register();
                     break;
                 case R.id.register_again_test_send:
-                    register();
                     break;
                 default:
                     break;

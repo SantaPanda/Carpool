@@ -9,13 +9,15 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.example.sheng.carpool.R;
 
 public class MainActivity extends AppCompatActivity {
 
     // 定义FragmentTabHost对象
     private FragmentTabHost mTabHost;
-
+    //
+    private RequestQueue mRequestQueue;
     // 定义一个布局
     private LayoutInflater layoutInflater;
 

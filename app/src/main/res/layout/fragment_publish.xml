@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:layout_below="@+id/publish_text2" android:layout_toStartOf="@+id/publish_start"/>
         <EditText
-            android:id="@+id/pulblish_end"
+            android:id="@+id/publish_end"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:textSize="20dp"

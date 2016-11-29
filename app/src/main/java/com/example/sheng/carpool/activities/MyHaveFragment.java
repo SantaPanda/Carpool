@@ -8,12 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
 import com.example.sheng.carpool.R;
 
 public class MyHaveFragment extends Fragment {
+
+    private RequestQueue mRequestQueue;
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_have, container, false);
+        view = inflater.inflate(R.layout.fragment_my_have, container, false);
+        return view;
+    }
+    class buttonListener implements View.OnClickListener {
+        public void onClick(View v) {
+            switch (v.getId()) {
+
+            }
+        }
     }
 }
