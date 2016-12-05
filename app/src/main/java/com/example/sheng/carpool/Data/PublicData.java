@@ -14,6 +14,7 @@ public class PublicData {
     public static final String registerServer = server+"net-work";
     public static final String myInfoServer = server+"networks-myinfo";
     public static final String publishServer = server+"net-publish";
+    public static final String changeMyInfoServer = server+"net-changeMyInfo";
     public static final String firstproject ="http://172.22.5.200:8080/firstProject_war_exploded/server-plus-demo";
     public static final int clientStoreNum =10;   //手机数据库存储10条信息
     public static final String TRUE_RETURN = "true";

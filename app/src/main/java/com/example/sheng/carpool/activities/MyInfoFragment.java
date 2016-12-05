@@ -49,6 +49,7 @@ public class MyInfoFragment extends Fragment {
     private EditText my_info_show_me;
     private ImageButton my_info_change_ok;
     private ImageButton exit;
+    private ImageButton my_info_change;
     private TextView my_info_good;
     private TextView my_info_bad;
     private TextView my_info_credit;
@@ -81,6 +82,8 @@ public class MyInfoFragment extends Fragment {
         my_info_change_ok.setOnClickListener(new buttonListener());
         exit = (ImageButton)view.findViewById(R.id.exit);
         exit.setOnClickListener(new buttonListener());
+        my_info_change = (ImageButton) view.findViewById(R.id.my_info_change);
+        my_info_change.setOnClickListener(new buttonListener());
     }
     private void getValue(){
         str_my_info_name=my_info_name.getText().toString();
@@ -126,7 +129,40 @@ public class MyInfoFragment extends Fragment {
     }
 
     private void changeMyInfoServer(){
-
+        final String url= PublicData.changeMyInfoServer;
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equals(PublicData.TRUE_RETURN)){
+                    Toast.makeText(getContext(),"修改成功",Toast.LENGTH_SHORT).show();
+                }
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"请连接网络！",Toast.LENGTH_SHORT).show();
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","changeMyInfo");
+                map.put("name",str_my_info_name);
+                map.put("nickName",str_my_info_nickname);
+                map.put("sex",str_my_info_sex);
+                map.put("phone",str_my_info_phone);
+                map.put("wechat",str_my_info_wechat);
+                map.put("qq",str_my_info_qq);
+                map.put("show_me",str_my_info_show_me);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
     }
     private void myInfoServer(){
         //final String url="http://172.22.5.200:8080/CarpoolWeb_war_exploded/test4";
@@ -179,8 +215,6 @@ public class MyInfoFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                my_info_name.setText(str);
-                Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -189,14 +223,9 @@ public class MyInfoFragment extends Fragment {
                 if(entry!=null){
                     try {
                         String data = new String(entry.data, "UTF-8");
-                        my_info_name.setText(data);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    //login_num_input.setText(new String(mRequestQueue.getCache().get(url).data).toString());
-                }
-                else {
-                    my_info_name.setText("空的");
                 }
                 Log.e("TAG", error.getMessage(), error);
             }
@@ -216,7 +245,10 @@ public class MyInfoFragment extends Fragment {
                    // getActivity().finish();
                     break;
                 case R.id.my_info_change_ok:
+
                     changeMyInfoServer();
+                    break;
+                case R.id.my_info_change:
                     break;
                 default:
                     break;

@@ -1,16 +1,19 @@
 package com.example.sheng.carpool.activities;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -53,6 +56,9 @@ public class MainFragment extends Fragment {
         main_start_input = (EditText)view.findViewById(R.id.main_start_input);
         main_end_input = (EditText)view.findViewById(R.id.main_end_input);
         main_day_input = (EditText)view.findViewById(R.id.main_day_input);
+        main_day_input.setInputType(InputType.TYPE_NULL);//不显示输入键盘
+        main_day_input.clearFocus();
+        main_day_input.setOnFocusChangeListener(new textListener());
         main_sure = (Button)view.findViewById(R.id.main_sure);
     }
     private void getValue(){
@@ -106,6 +112,29 @@ public class MainFragment extends Fragment {
                 case R.id.main_sure:
                     searchServer();
             }
+        }
+    }
+
+    class textListener implements  View.OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                switch (v.getId()) {
+                    case R.id.main_day_input:
+                        Calendar c = Calendar.getInstance();
+                        new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                // TODO Auto-generated method stub
+                                main_day_input.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                            }
+                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+                        main_start_input.requestFocus();
+                        break;
+                    default:
+                        break;
+                }//switch
+            }//if
         }
     }
 }
