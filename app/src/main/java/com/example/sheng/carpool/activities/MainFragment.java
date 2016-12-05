@@ -3,6 +3,7 @@ package com.example.sheng.carpool.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -60,6 +61,7 @@ public class MainFragment extends Fragment {
         main_day_input.clearFocus();
         main_day_input.setOnFocusChangeListener(new textListener());
         main_sure = (Button)view.findViewById(R.id.main_sure);
+        main_sure.setOnClickListener(new buttonListener());
     }
     private void getValue(){
         str_main_start_input =  main_start_input.getText().toString();
@@ -110,7 +112,10 @@ public class MainFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.main_sure:
-                    searchServer();
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(),Search.class);
+                    getContext().startActivity(intent);
+                   // searchServer();
             }
         }
     }

@@ -5,7 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  国雄的-->
-    <string name="app_name">Car</string>
     <string name="login_top">CarPool</string>
     <string name="login_num">账号：</string>
     <string name="login_pass">密码：</string>

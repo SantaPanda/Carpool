@@ -31,11 +31,10 @@ public class Register extends Activity {
     private EditText register_num_input;
     private EditText register_password_input;
     private EditText register_again_password_input;
-    private EditText register_test_input;
-    private Button register_again_test_send;
+    private EditText register_phone_input;
     private Button register_sure;
     private String str_register_num_input, str_register_password_input;
-    private String str_register_again_password_input , str_register_test_input;
+    private String str_register_again_password_input , str_register_phone_input;
     private String f1, f2;
     private RequestQueue mRequestQueue;
     @Override
@@ -49,11 +48,9 @@ public class Register extends Activity {
         register_num_input = (EditText)findViewById(R.id.login_num_input);
         register_password_input = (EditText)findViewById(R.id.register_password_input);
         register_again_password_input = (EditText)findViewById(R.id.register_again_password_input);
-        register_test_input = (EditText)findViewById(R.id.register_test_input);
+        register_phone_input = (EditText)findViewById(R.id.register_phone_input);
         register_sure = (Button)findViewById(R.id.register_sure);
         register_sure.setOnClickListener(new buttonListener1());
-        register_again_test_send =(Button)findViewById(R.id.register_again_test_send);
-        register_again_test_send.setOnClickListener(new buttonListener1());
     }
     //
     private void register(){
@@ -99,8 +96,6 @@ public class Register extends Activity {
             switch (v.getId()){
                 case R.id.register_sure:
                     register();
-                    break;
-                case R.id.register_again_test_send:
                     break;
                 default:
                     break;

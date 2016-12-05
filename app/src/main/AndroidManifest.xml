@@ -24,7 +24,9 @@
         <activity android:name=".activities.Search" />
         <activity android:name=".activities.SeeInfo" />
         <activity android:name=".activities.Message" />
-        <activity android:name=".activities.Case"></activity>
+        <activity android:name=".activities.Case" />
+        <activity android:name=".activities.CaseIn" />
+        <activity android:name=".activities.CaseInOwn"></activity>
     </application>
 
 </manifest>
