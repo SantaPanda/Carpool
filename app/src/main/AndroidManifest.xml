@@ -21,7 +21,10 @@
         <activity android:name=".activities.Login" />
         <activity android:name=".activities.Reset" />
         <activity android:name=".activities.Forget" />
-        <activity android:name=".activities.Search"></activity>
+        <activity android:name=".activities.Search" />
+        <activity android:name=".activities.SeeInfo" />
+        <activity android:name=".activities.Message" />
+        <activity android:name=".activities.Case"></activity>
     </application>
 
 </manifest>

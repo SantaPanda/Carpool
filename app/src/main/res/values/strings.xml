@@ -5,6 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  国雄的-->
+    <string name="app_name">Car</string>
     <string name="login_top">CarPool</string>
     <string name="login_num">账号：</string>
     <string name="login_pass">密码：</string>
@@ -15,7 +16,7 @@
     <string name="forget_num">账号：</string>
     <string name="forget_pass">验证码：</string>
     <string name="forget_pass_send">重新发送</string>
-    <string name="forget_sure">确定</string>
+    <string name="forget_sure">发送验证邮件</string>
     <string name="reset_top">重设密码</string>
     <string name="reset_new_password">新密码：</string>
     <string name="reset_in_new_password">再次输入：</string>
@@ -26,7 +27,7 @@
     <string name="register_again_password">再次输入:</string>
     <string name="register_test">验证码:</string>
     <string name="register_again_test_send">重新发送</string>
-    <string name="register_sure">确定</string>
+    <string name="register_sure">发送验证邮件</string>
     <string name="main_start">出发地</string>
     <string name="main_end">目的地</string>
     <string name="main_time">出发时间:</string>
@@ -52,6 +53,13 @@
     <string name="my_have_publish">我发布的拼单</string>
     <string name="my_have_join">我加入的拼单</string>
     <string name="my_have_done">我经历过的拼单</string>
+    <string name="search_pay">价格:</string>
+    <string name="search_link">联系方式:</string>
+    <string name="forget_new_password">新密码:</string>
+    <string name="forget_password_again">确认密码:</string>
+    <string name="register_phone">电话号码:</string>
+    <string name="message_top">留言</string>
+    <string name="message_send">发送</string>
     <!--国雄的-->
 
 </resources>

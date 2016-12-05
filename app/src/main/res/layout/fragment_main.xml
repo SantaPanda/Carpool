@@ -76,17 +76,7 @@
             android:id="@+id/main_day_input"
             android:layout_alignBottom="@+id/main_time"
             android:layout_toEndOf="@+id/main_time"/>
-        <EditText
-            android:textColorHint="#AAAAAA"
-            android:hint="时间"
-            android:paddingLeft="10dp"
-            android:background="@drawable/bg_edittext"
-            android:layout_width="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_height="40dp"
-            android:id="@+id/main_time_input"
-            android:layout_below="@+id/main_day_input" android:layout_alignStart="@+id/main_day_input"
-            android:layout_marginTop="20dp"/>
+
         <Button
             android:background="@drawable/sure_button"
             android:textColor="@color/white"
@@ -94,7 +84,7 @@
             android:layout_height="wrap_content"
             android:text="@string/main_sure"
             android:id="@+id/main_sure"
-            android:layout_below="@+id/main_time_input"
+            android:layout_below="@+id/main_day_input"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"/>
 

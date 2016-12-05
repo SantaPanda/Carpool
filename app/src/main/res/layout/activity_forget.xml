@@ -10,7 +10,7 @@
         android:textColor="@color/white"
         android:background="@color/top"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:src="@drawable/back"
         android:id="@+id/imageButton"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="1dp"/>
     <TextView
         android:id="@+id/forget_num"
         android:textSize="25dp"
@@ -41,40 +41,6 @@
         android:layout_alignBottom="@+id/forget_num"
         android:layout_toEndOf="@+id/forget_num"
         android:id="@+id/forget_num_input"/>
-    <TextView
-        android:text="@string/forget_pass"
-        android:textSize="25dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/forget_num"
-        android:layout_alignParentStart="true"
-        android:id="@+id/forget_pass"/>
-    <EditText
-        android:textColorHint="#AAAAAA"
-        android:hint="请输入..."
-        android:background="@drawable/bg_edittext"
-        android:paddingLeft="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/forget_pass_input"
-        android:layout_alignBottom="@+id/forget_pass"
-        android:layout_toEndOf="@+id/forget_num"/>
-    <Button
-        android:textColor="@color/white"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/sure_button"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:text="@string/forget_pass_send"
-        android:layout_marginRight="20dp"
-        android:id="@+id/forget_pass_send"
-        android:layout_alignBottom="@+id/forget_pass_input"
-        android:layout_alignParentEnd="true"/>
     <Button
         android:background="@drawable/sure_button"
         android:textColor="@color/white"
@@ -82,7 +48,41 @@
         android:layout_height="wrap_content"
         android:text="@string/forget_sure"
         android:id="@+id/forget_sure"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/forget_pass"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/editText" android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forget_new_password"
+        android:textSize="25dp"
+        android:id="@+id/forget_new_password" android:layout_below="@+id/forget_num" android:layout_alignEnd="@+id/forget_num"
+        android:layout_marginTop="10dp"/>
+    <EditText
+        android:textColorHint="#AAAAAA"
+        android:hint="请输入..."
+        android:background="@drawable/bg_edittext"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/forget_new_password_input" android:layout_alignTop="@+id/forget_new_password"
+        android:layout_alignStart="@+id/forget_num_input"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forget_password_again"
+        android:textSize="23dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/forget_password_again" android:layout_below="@+id/forget_new_password"
+        android:layout_alignEnd="@+id/forget_new_password"/>
+    <EditText
+        android:textColorHint="#AAAAAA"
+        android:hint="请输入..."
+        android:background="@drawable/bg_edittext"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/editText" android:layout_alignBottom="@+id/forget_password_again"
+        android:layout_alignStart="@+id/forget_new_password_input"/>
 </RelativeLayout>
