@@ -38,15 +38,17 @@
         android:layout_height="wrap_content"
         android:text="汕头大学"
         android:id="@+id/search_start"
-        android:layout_alignBottom="@+id/search_result_img" android:layout_toEndOf="@+id/search_result_img"/>
+        android:layout_alignBottom="@+id/search_result_img"
+        android:layout_toEndOf="@+id/search_result_img"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:text="10：30"
         android:id="@+id/search_time"
-        android:layout_alignBaseline="@+id/search_start" android:layout_alignBottom="@+id/search_start"
-        android:layout_centerHorizontal="true"/>
+        android:layout_toRightOf="@+id/search_start"
+        android:layout_alignBottom="@+id/search_start"
+        />
     <ImageView
         android:src="@drawable/right"
         android:layout_width="wrap_content"
@@ -58,7 +60,8 @@
         android:layout_height="wrap_content"
         android:text="潮汕站"
         android:id="@+id/search_end"
-        android:layout_alignBottom="@+id/search_time" android:layout_alignStart="@+id/search_result_per"/>
+        android:layout_alignBottom="@+id/search_time"
+        android:layout_toRightOf="@+id/search_right_img" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

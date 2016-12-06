@@ -52,10 +52,17 @@ public class Register extends Activity {
         register_sure = (Button)findViewById(R.id.register_sure);
         register_sure.setOnClickListener(new buttonListener1());
     }
+    private void getValue(){
+        str_register_num_input=register_num_input.getText().toString();
+        str_register_password_input=register_password_input.getText().toString();
+        str_register_again_password_input=register_again_password_input.getText().toString();
+        str_register_phone_input=register_phone_input.getText().toString();
+    }
     //
     private void register(){
         f1 = register_num_input.getText().toString();
         f2 = register_password_input.getText().toString();
+        getValue();
         final String url= PublicData.registerServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
