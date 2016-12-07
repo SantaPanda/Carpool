@@ -3,10 +3,12 @@ package com.example.sheng.carpool.activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ExpandedMenuView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +16,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Dao.CarpoolInfo;
 import com.example.sheng.carpool.Dao.CommentInfo;
 import com.example.sheng.carpool.Dao.MyInfo;
+import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.CommentInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.PeopleInfoListAdapter;
@@ -26,11 +37,15 @@ import com.example.sheng.carpool.helpers.JsonOperation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Search_case extends Activity {
 
+    private RequestQueue mRequestQueue;
     private TextView case_public_name;
     private TextView case_people;
     private TextView case_good_show;
@@ -56,7 +71,11 @@ public class Search_case extends Activity {
     private CommentInfoListAdapter commentInfoListAdapter;
     private List<CommentInfo> commentInfoArrayList = new ArrayList<>();
     private CommentInfo[]commentInfos;
-
+    //SharedPreferences存储
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    private String account = "";
+    private String carpoolID ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +85,7 @@ public class Search_case extends Activity {
         CarpoolInfo carpoolInfo = null;
         if(!data.equals("")){
             carpoolInfo = JsonOperation.jsonObjectAnalysis(data);
+            carpoolID = carpoolInfo.getAccountID();
         }
         componentInit();
         if(!data.equals("")){
@@ -85,6 +105,65 @@ public class Search_case extends Activity {
         ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
         commentListView.setAdapter(commentInfoListAdapter);
 
+    }
+
+    //获取账号
+    private void getAccount(){
+        //之前有登陆，直接填写数据
+        pref = getSharedPreferences("data",MODE_PRIVATE);
+        String a = pref.getString("account","");
+        String b = pref.getString("password","");
+        if(!a.equals("")){
+            account = a;
+        }
+    }
+    private void add(){
+        final String url= PublicData.loginServer;
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equals(PublicData.TRUE_RETURN)){
+                    finish();
+                }
+                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Search_case.this,"没网络",Toast.LENGTH_LONG).show();
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(data.equals(PublicData.TRUE_RETURN)){
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                }
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","add");
+                map.put("account",account);
+                map.put("carpoolID",carpoolID);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
     }
 
     private void initPeopleInfo(){
@@ -163,6 +242,8 @@ public class Search_case extends Activity {
                 case R.id.case_send_massage:
                     Intent intent = new Intent();
                     intent.setClass(Search_case.this,Message.class);
+                    intent.putExtra("account",account);
+                    intent.putExtra("carpoolID",carpoolID);
                     Search_case.this.startActivity(intent);
                     //finish();
                     break;

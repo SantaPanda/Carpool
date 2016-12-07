@@ -44,6 +44,7 @@ public class MainFragment extends Fragment {
     private Button main_sure;
     private String str_main_start_input, str_main_end_input, str_main_day_input;
     private RequestQueue mRequestQueue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

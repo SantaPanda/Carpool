@@ -60,7 +60,7 @@ public class PublishFragment extends Fragment {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     //获取账号
-    private void getAccount(){
+    private String getAccount(){
         //之前有登陆，直接填写数据
         pref = getActivity().getSharedPreferences("data",getActivity().MODE_PRIVATE);
         String a = pref.getString("account","");
@@ -68,6 +68,7 @@ public class PublishFragment extends Fragment {
         if(!a.equals("")){
             Toast.makeText(getContext(),""+a,Toast.LENGTH_SHORT).show();
         }
+        return a;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,7 +111,7 @@ public class PublishFragment extends Fragment {
     }
 
     private void publishServer(){
-        final String account = "";       //还需要获取账号。。。。。。。。。。。。。。。。。。。。。
+        final String account = getAccount();
         getValue();
         final String url = PublicData.publishServer;
         mRequestQueue = Volley.newRequestQueue(getContext());

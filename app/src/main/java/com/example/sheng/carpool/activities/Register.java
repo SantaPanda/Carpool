@@ -91,8 +91,9 @@ public class Register extends Activity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","register");
-                map.put("account",f1);
-                map.put("password",f2);
+                map.put("account",str_register_num_input);
+                map.put("password",str_register_password_input);
+                map.put("phoneNum",str_register_phone_input);
                 return map;
             }
         };

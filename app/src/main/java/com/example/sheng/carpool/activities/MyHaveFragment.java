@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Dao.CarpoolInfo;
+import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.JsonOperation;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyHaveFragment extends Fragment {
 
@@ -126,6 +138,53 @@ public class MyHaveFragment extends Fragment {
         my_have_done = (Button)view.findViewById(R.id.my_have_done);
         my_have_done.setOnClickListener(new buttonListener());
     }
+
+    private void login(){
+        final String url= PublicData.loginServer;
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equals(PublicData.TRUE_RETURN)){
+
+                }
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(data.equals(PublicData.TRUE_RETURN)){
+
+                        }
+                        else {
+                            Toast.makeText(getContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                }
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","myHave");
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
+
     //ListView用的
     private void initCarpoolInfoList1(){
         CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1.1","name1.1","date1.1","departure1.1",
