@@ -5,14 +5,57 @@ package com.example.sheng.carpool.Dao;
  */
 public class CommentInfo {
     private int accountID;     //发表评论的人的ID
+    private String name;
     private int carpoolID;     //所针对的拼车信息的ID
     private int aimCommentID;  //所回复的评论的ID
-    private String detail;     //学校信息
+    private String detail;     //详细信息
 
-    public CommentInfo(int accountID, int carpoolID, int aimCommentID, String detail) {
+    public CommentInfo(int accountID, String name,int carpoolID, int aimCommentID,
+                       String detail) {
         this.accountID = accountID;
+        this.name = name;
         this.carpoolID = carpoolID;
         this.aimCommentID = aimCommentID;
+        this.detail = detail;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
+
+    public int getCarpoolID() {
+        return carpoolID;
+    }
+
+    public void setCarpoolID(int carpoolID) {
+        this.carpoolID = carpoolID;
+    }
+
+    public int getAimCommentID() {
+        return aimCommentID;
+    }
+
+    public void setAimCommentID(int aimCommentID) {
+        this.aimCommentID = aimCommentID;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
         this.detail = detail;
     }
 }
