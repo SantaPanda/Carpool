@@ -1,6 +1,7 @@
 package com.example.sheng.carpool.activities;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,11 +19,13 @@ public class Forget extends Activity {
     private EditText forget_password_again_input;
     private Button forget_sure;
     private String str_forget_num_input,str_forget_new_password_input,str_forget_password_again_input;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
         componentInit();
+
     }
     private void componentInit(){
         forget_num_input = (EditText)findViewById(R.id.forget_num_input);

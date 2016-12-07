@@ -3,6 +3,7 @@ package com.example.sheng.carpool.activities;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,17 +40,31 @@ public class Login extends Activity {
     private Button login_forget;
     private Button login_register;
     private String str_login_num_input,str_login_pass_input;
+    //SharedPreferences存储
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 //volly网络请求处理
     public static final String TAG = Login.class
             .getSimpleName();
     private RequestQueue mRequestQueue;
     private static Login mInstance;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         componentInit();
+        //之前有登陆，直接填写数据
+        pref = getSharedPreferences("data",MODE_PRIVATE);
+        String a = pref.getString("account","");
+        String b = pref.getString("password","");
+        if(!a.equals("")){
+            login_num_input.setText(a);
+            login_pass_input.setText(b);
+            login_pass_input.setSelection(a.length());
+        }
     }
     //组件初始化，为组件监听
     private void componentInit(){
@@ -61,6 +76,13 @@ public class Login extends Activity {
         login_forget.setOnClickListener(new buttonListener());
         login_register = (Button) findViewById(R.id.login_register);
         login_register.setOnClickListener(new buttonListener());
+    }
+    //存储账号密码到SharedPreferences
+    private  void saveAccountPwToLoacl(){
+        editor = pref.edit();
+        editor.putString("account",login_num_input.getText().toString().trim());
+        editor.putString("password",login_pass_input.getText().toString().trim());
+        editor.commit();
     }
 
     private void login(){
@@ -178,6 +200,10 @@ public class Login extends Activity {
         public void onClick(View v){
             switch (v.getId()){
                 case R.id.login_sure:
+                    /**
+                     * 暂时放在这里，应该放到网络验证成功后。。。。。。。。。。。。>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                     */
+                    saveAccountPwToLoacl();
                     login();
                     break;
                 case R.id.login_forget:

@@ -1,5 +1,6 @@
 package com.example.sheng.carpool.Data;
 
+import android.content.SharedPreferences;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ public class PublicData {
     public static final int clientStoreNum =10;   //手机数据库存储10条信息
     public static final String TRUE_RETURN = "true";
     public static final String FALSE_RETURN = "false";
-
+    
     //设置EditText是否可以编辑
     public static void changeEditState(boolean value, EditText editText) {
         if (value) {

@@ -192,6 +192,7 @@
         <Button
             android:layout_alignParentLeft="true"
             android:layout_margin="10dp"
+            android:id="@+id/case_send_massage"
             android:textSize="20dp"
             android:text="留言"
             android:textColor="@color/white"
@@ -201,6 +202,7 @@
         <Button
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
+            android:id="@+id/case_join_in"
             android:text="我加入"
             android:textColor="@color/white"
             android:textSize="30dp"

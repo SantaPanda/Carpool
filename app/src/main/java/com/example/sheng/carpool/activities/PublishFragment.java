@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -54,6 +55,20 @@ public class PublishFragment extends Fragment {
     private String str_publish_phone, str_publish_info;
     private RequestQueue mRequestQueue;
 
+
+    //SharedPreferences存储
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    //获取账号
+    private void getAccount(){
+        //之前有登陆，直接填写数据
+        pref = getActivity().getSharedPreferences("data",getActivity().MODE_PRIVATE);
+        String a = pref.getString("account","");
+        String b = pref.getString("password","");
+        if(!a.equals("")){
+            Toast.makeText(getContext(),""+a,Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -139,6 +154,7 @@ public class PublishFragment extends Fragment {
         public void onClick(View v){
             switch (v.getId()){
                 case R.id.publish_sure:
+                    getAccount();
                     publishServer();
                     break;
                 default:

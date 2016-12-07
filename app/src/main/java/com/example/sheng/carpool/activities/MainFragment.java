@@ -29,8 +29,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.R;
-import com.example.sheng.carpool.helpers.TextDatePickerDialog;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -119,6 +117,7 @@ public class MainFragment extends Fragment {
             }
         }
     }
+
 
     class textListener implements  View.OnFocusChangeListener {
         @Override

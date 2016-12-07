@@ -1,11 +1,14 @@
+/*
 package com.example.sheng.carpool.helpers;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 
+*/
 /**
  * Created by sheng on 16-11-28.
- */
+ *//*
+
 public class TextDatePickerDialog extends DatePickerDialog {
     public TextDatePickerDialog(Context context, OnDateSetListener callBack, int year,
                                 int monthOfYear, int dayOfMonth) {
@@ -18,3 +21,4 @@ public class TextDatePickerDialog extends DatePickerDialog {
         super(context, theme, listener, year, monthOfYear, dayOfMonth);
     }
 }
+*/

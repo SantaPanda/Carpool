@@ -41,7 +41,7 @@ public class CarpoolInfoListAdapter extends ArrayAdapter<CarpoolInfo> {
         View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
         componentInit(view);
 
-        //search_result_name.setText(carpoolInfo.get);
+        search_result_name.setText(carpoolInfo.getName());
         search_result_day.setText(carpoolInfo.getDate());
         search_result_per.setText(carpoolInfo.getHaveNum()+"/"+carpoolInfo.getTotalNum());
         search_start.setText(carpoolInfo.getDeparture());

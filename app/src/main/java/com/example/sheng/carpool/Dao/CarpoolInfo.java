@@ -18,7 +18,7 @@ public class CarpoolInfo {
     private String addID;         //要拼车的人的ID
     private String commentID;     //发表评论的人的ID
 
-    public CarpoolInfo(String accountID, String name,String date, String departure, String destination,
+    public CarpoolInfo(String accountID, String name, String date, String departure, String destination,
                        String departureTime, int price, int totalNum, int haveNum,
                        String phoneNum, String detail, String addID, String commentID) {
         this.accountID = accountID;
@@ -36,8 +36,10 @@ public class CarpoolInfo {
         this.commentID = commentID;
     }
 
-    public String getName() { return  name; }
-    public void setName(String name) { this.name = name;}
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
     public String getAccountID() {
         return accountID;
     }
