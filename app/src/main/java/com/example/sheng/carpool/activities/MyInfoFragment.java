@@ -151,7 +151,7 @@ public class MyInfoFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
-                map.put("type","changeMyInfo");
+                map.put("type","MyInfo");
                 map.put("name",str_my_info_name);
                 map.put("nickName",str_my_info_nickname);
                 map.put("sex",str_my_info_sex);

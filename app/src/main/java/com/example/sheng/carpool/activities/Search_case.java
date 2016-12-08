@@ -24,11 +24,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.sheng.carpool.Dao.AddInfo;
 import com.example.sheng.carpool.Dao.CarpoolInfo;
+import com.example.sheng.carpool.Dao.CommentAdd;
 import com.example.sheng.carpool.Dao.CommentInfo;
 import com.example.sheng.carpool.Dao.MyInfo;
 import com.example.sheng.carpool.Data.PublicData;
+import com.example.sheng.carpool.ListViewHelp.AddInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
+import com.example.sheng.carpool.ListViewHelp.CommentAddListAdapter;
 import com.example.sheng.carpool.ListViewHelp.CommentInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.PeopleInfoListAdapter;
 import com.example.sheng.carpool.R;
@@ -71,6 +75,15 @@ public class Search_case extends Activity {
     private CommentInfoListAdapter commentInfoListAdapter;
     private List<CommentInfo> commentInfoArrayList = new ArrayList<>();
     private CommentInfo[]commentInfos;
+    //
+    private CommentAddListAdapter commentAddListAdapter;
+    private List<CommentAdd> commentAddArrayList = new ArrayList<>();
+    private CommentAdd[] commentAdds;
+    //
+    private AddInfoListAdapter addInfoListAdapter;
+    private List<AddInfo> addInfoArrayList = new ArrayList<>();
+    private AddInfo[] addInfos;
+
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -93,6 +106,7 @@ public class Search_case extends Activity {
             setValue(carpoolInfo);
         }
         //ListView中的内容
+        /*
     //    initPeopleInfo();
         //其他拼车成员
         peopleInfoListAdapter = new PeopleInfoListAdapter(getApplicationContext(),
@@ -104,6 +118,15 @@ public class Search_case extends Activity {
                 R.layout.case_in,commentInfoArrayList);
         ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
         commentListView.setAdapter(commentInfoListAdapter);
+        */
+        commentAddListAdapter = new CommentAddListAdapter(getApplicationContext(),
+                R.layout.case_in,commentAddArrayList);
+        ListView listView = (ListView)findViewById(R.id.case_in_listview);
+        listView.setAdapter(commentAddListAdapter);
+        addInfoListAdapter = new AddInfoListAdapter(getApplicationContext(),
+                R.layout.case_in,addInfoArrayList);
+        ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
+        commentListView.setAdapter(addInfoListAdapter);
 
     }
 
@@ -164,6 +187,19 @@ public class Search_case extends Activity {
             }
         };
         mRequestQueue.add(stringRequest);
+    }
+
+    private void initCommentAdd(){
+        CommentAdd commentAdd1 = new CommentAdd("account1","name1","detail1");
+        commentAddListAdapter.add(commentAdd1);
+        CommentAdd commentAdd2 = new CommentAdd("account2","name2","detail2");
+        commentAddListAdapter.add(commentAdd2);
+    }
+    private void initAddInfo(){
+        AddInfo addInfo1 = new AddInfo("account1","name1","phone1");
+        addInfoListAdapter.add(addInfo1);
+        AddInfo addInfo2 = new AddInfo("account1","name1","phone1");
+        addInfoListAdapter.add(addInfo2);
     }
 
     private void initPeopleInfo(){
@@ -251,23 +287,39 @@ public class Search_case extends Activity {
                     dialog();
                     break;
                 case R.id.case_others:
+                    /*
                     if(peopleInfoListAdapter.getCount()!=0){
                         peopleInfoListAdapter.clear();
                         peopleInfoListAdapter.notifyDataSetChanged();
                     }
+                    */
+                    if(commentAddListAdapter.getCount()!=0){
+                        commentAddListAdapter.clear();
+                        commentAddListAdapter.notifyDataSetChanged();
+                    }
                     else {
-                        initPeopleInfo();
-                        peopleInfoListAdapter.notifyDataSetChanged();
+                        //initPeopleInfo();
+                        //peopleInfoListAdapter.notifyDataSetChanged();
+                        initCommentAdd();
+                        commentAddListAdapter.notifyDataSetChanged();
                     }
                     break;
                 case R.id.case_massage:
+                    /*
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();
                         commentInfoListAdapter.notifyDataSetChanged();
                     }
+                    */
+                    if(addInfoListAdapter.getCount()!=0){
+                        addInfoListAdapter.clear();
+                        addInfoListAdapter.notifyDataSetChanged();
+                    }
                     else {
-                        initCommentInfo();
-                        commentInfoListAdapter.notifyDataSetChanged();
+                        //initCommentInfo();
+                        //commentInfoListAdapter.notifyDataSetChanged();
+                        initAddInfo();
+                        addInfoListAdapter.notifyDataSetChanged();
                     }
                     break;
                 default:

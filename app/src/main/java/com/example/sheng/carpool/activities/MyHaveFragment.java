@@ -55,6 +55,7 @@ public class MyHaveFragment extends Fragment {
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    private String account;
     //获取账号
     private void getAccount(){
         //之前有登陆，直接填写数据
@@ -63,6 +64,7 @@ public class MyHaveFragment extends Fragment {
         String b = pref.getString("password","");
         if(!a.equals("")){
             my_have_name.setText(a);
+            account =a;
         }
     }
 
@@ -179,6 +181,7 @@ public class MyHaveFragment extends Fragment {
                 //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","myHave");
+                map.put("account",account);
                 return map;
             }
         };
