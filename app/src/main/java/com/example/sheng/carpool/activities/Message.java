@@ -50,7 +50,7 @@ public class Message extends Activity {
 
     private void message(){
         str_message_input = message_input.getText().toString();
-        final String url= PublicData.loginServer;
+        final String url= PublicData.messageServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
@@ -66,22 +66,6 @@ public class Message extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Message.this,"没网络",Toast.LENGTH_LONG).show();
-                Cache.Entry entry = mRequestQueue.getCache().get(url);
-                if(entry!=null){
-                    try {
-                        String data = new String(entry.data, "UTF-8");
-                        if(data.equals(PublicData.TRUE_RETURN)){
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                }
                 Log.e("TAG", error.getMessage(), error);
             }
         }){
@@ -102,6 +86,7 @@ public class Message extends Activity {
         @Override
         public void onClick(View view) {
             str_message_input = message_input.getText().toString();
+            message();
         }
     }
 }

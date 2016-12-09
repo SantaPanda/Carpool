@@ -141,8 +141,8 @@ public class MyHaveFragment extends Fragment {
         my_have_done.setOnClickListener(new buttonListener());
     }
 
-    private void login(){
-        final String url= PublicData.loginServer;
+    private void myAdd(){
+        final String url = PublicData.myAddServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
@@ -161,7 +161,7 @@ public class MyHaveFragment extends Fragment {
                 if(entry!=null){
                     try {
                         String data = new String(entry.data, "UTF-8");
-                        if(data.equals(PublicData.TRUE_RETURN)){
+                        if(!data.equals(PublicData.FALSE_RETURN)){
 
                         }
                         else {
@@ -180,7 +180,53 @@ public class MyHaveFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
-                map.put("type","myHave");
+                map.put("type","myAdd");
+                map.put("account",account);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
+    private void myPublish(){
+        final String url= PublicData.myPublishServer;
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equals(PublicData.TRUE_RETURN)){
+
+                }
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(!data.equals(PublicData.FALSE_RETURN)){
+
+                        }
+                        else {
+                            Toast.makeText(getContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                }
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","myPublish");
                 map.put("account",account);
                 return map;
             }
@@ -224,6 +270,7 @@ public class MyHaveFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.my_have_publish:
+                    myPublish();
                     //
                     if(carpoolInfoListAdapter1.getCount()!=0){
                         carpoolInfoArrayList1.clear();
@@ -235,6 +282,7 @@ public class MyHaveFragment extends Fragment {
                     }
                     break;
                 case R.id.my_have_join:
+                    myAdd();
                     if(carpoolInfoListAdapter2.getCount()!=0){
                         carpoolInfoArrayList2.clear();
                         carpoolInfoListAdapter2.notifyDataSetChanged();

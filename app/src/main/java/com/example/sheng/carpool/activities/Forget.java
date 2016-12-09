@@ -57,15 +57,17 @@ public class Forget extends Activity {
 
     private void forget(){
         getValue();
-        final String url= PublicData.loginServer;
+        final String url= PublicData.forgetServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                /*
                 if(response.equals(PublicData.TRUE_RETURN)){
                     finish();
                 }
+                */
                 Toast.makeText(Forget.this,response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
@@ -73,22 +75,6 @@ public class Forget extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Forget.this,"没网络",Toast.LENGTH_LONG).show();
-                Cache.Entry entry = mRequestQueue.getCache().get(url);
-                if(entry!=null){
-                    try {
-                        String data = new String(entry.data, "UTF-8");
-                        if(data.equals(PublicData.TRUE_RETURN)){
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                }
                 Log.e("TAG", error.getMessage(), error);
             }
         }){
@@ -109,6 +95,7 @@ public class Forget extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.forget_sure:
+                    forget();
                     break;
                 default:
                     break;

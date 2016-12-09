@@ -69,17 +69,18 @@ public class MainFragment extends Fragment {
     }
     private void searchServer(){
         getValue();
-        final String url= PublicData.loginServer;
+        final String url= PublicData.searchServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(!response.equals(PublicData.FALSE_RETURN)){
+                    Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                     /**
                      *将response传递到“我发布的信息”
                      */
-
+/*
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.append("[");
                     stringBuilder.append("{");
@@ -103,9 +104,7 @@ public class MainFragment extends Fragment {
                     stringBuilder.append("}");
 
                     stringBuilder.append("]");
-
-
-
+*/
                 }
                 else {
                     Toast.makeText(getContext(),"查找不到数据，请重新输入有效地点和时间",Toast.LENGTH_SHORT).show();
@@ -137,10 +136,11 @@ public class MainFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.main_sure:
+                    searchServer();
                     Intent intent = new Intent();
                     intent.setClass(getContext(),Search.class);
                     getContext().startActivity(intent);
-                   // searchServer();
+
             }
         }
     }

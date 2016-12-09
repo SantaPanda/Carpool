@@ -105,6 +105,7 @@ public class Search_case extends Activity {
             Toast.makeText(getApplicationContext(),""+carpoolInfo.getName(),Toast.LENGTH_LONG).show();
             setValue(carpoolInfo);
         }
+        getAccount();
         //ListView中的内容
         /*
     //    initPeopleInfo();
@@ -141,14 +142,15 @@ public class Search_case extends Activity {
         }
     }
     private void add(){
-        final String url= PublicData.loginServer;
+        getAccount();
+        final String url= PublicData.addServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(response.equals(PublicData.TRUE_RETURN)){
-                    finish();
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    //finish();
                 }
                 Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
@@ -157,22 +159,6 @@ public class Search_case extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Search_case.this,"没网络",Toast.LENGTH_LONG).show();
-                Cache.Entry entry = mRequestQueue.getCache().get(url);
-                if(entry!=null){
-                    try {
-                        String data = new String(entry.data, "UTF-8");
-                        if(data.equals(PublicData.TRUE_RETURN)){
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                }
                 Log.e("TAG", error.getMessage(), error);
             }
         }){
@@ -182,6 +168,70 @@ public class Search_case extends Activity {
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","add");
                 map.put("account",account);
+                map.put("carpoolID",carpoolID);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
+
+    private void otherMember(){
+        final String url= PublicData.otherAccountServer;
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    //finish();
+                }
+                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Search_case.this,"没网络",Toast.LENGTH_LONG).show();
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","otherAddMember");
+                map.put("carpoolID",carpoolID);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
+
+    private void commentMember(){
+        final String url= PublicData.otherAccountServer;
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    //finish();
+                }
+                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Search_case.this,"没网络",Toast.LENGTH_LONG).show();
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","commentMember");
                 map.put("carpoolID",carpoolID);
                 return map;
             }
@@ -261,6 +311,7 @@ public class Search_case extends Activity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
                 //加入处理。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+                add();
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -271,6 +322,7 @@ public class Search_case extends Activity {
         });
         builder.create().show();
     }
+
     class buttonListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
@@ -286,7 +338,9 @@ public class Search_case extends Activity {
                 case R.id.case_join_in:
                     dialog();
                     break;
+                //
                 case R.id.case_others:
+                    otherMember();
                     /*
                     if(peopleInfoListAdapter.getCount()!=0){
                         peopleInfoListAdapter.clear();
@@ -305,6 +359,7 @@ public class Search_case extends Activity {
                     }
                     break;
                 case R.id.case_massage:
+                    commentMember();
                     /*
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();

@@ -11,9 +11,17 @@ import android.widget.EditText;
 public class PublicData {
 
     private static final String server = "http://172.22.5.200:8080/CarpoolWeb_war_exploded/";
-    public static final String loginServer = server +"net-work";
+    //public static final String loginServer = server +"net-work";
+    public static final String loginServer = "http://172.22.221.94:8080/login.php";
     public static final String registerServer = server+"net-work";
     public static final String myInfoServer = server+"networks-myinfo";
+    public static final String searchServer = server+"";
+    public static final String forgetServer = server+"";
+    public static final String messageServer = server+"";
+    public static final String myPublishServer = server+"";
+    public static final String myAddServer = server+"";
+    public static final String addServer = server+"";
+    public static final String otherAccountServer = server+"";
     public static final String publishServer = server+"net-publish";
     public static final String changeMyInfoServer = server+"net-changeMyInfo";
     public static final String firstproject ="http://172.22.5.200:8080/firstProject_war_exploded/server-plus-demo";
