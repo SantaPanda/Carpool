@@ -35,7 +35,6 @@ public class Register extends Activity {
     private Button register_sure;
     private String str_register_num_input, str_register_password_input;
     private String str_register_again_password_input , str_register_phone_input;
-    private String f1, f2;
     private RequestQueue mRequestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class Register extends Activity {
     }
     //组件初始化，为组件监听
     private void componentInit(){
-        register_num_input = (EditText)findViewById(R.id.login_num_input);
+        register_num_input = (EditText)findViewById(R.id.register_num_input);
         register_password_input = (EditText)findViewById(R.id.register_password_input);
         register_again_password_input = (EditText)findViewById(R.id.register_again_password_input);
         register_phone_input = (EditText)findViewById(R.id.register_phone_input);
@@ -60,10 +59,9 @@ public class Register extends Activity {
     }
     //
     private void register(){
-        f1 = register_num_input.getText().toString();
-        f2 = register_password_input.getText().toString();
         getValue();
         final String url= PublicData.registerServer;
+        //final String url = PublicData.loginServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
@@ -99,6 +97,8 @@ public class Register extends Activity {
         };
         mRequestQueue.add(stringRequest);
     }
+
+
     class buttonListener1 implements View.OnClickListener {
         public void onClick(View v){
             switch (v.getId()){

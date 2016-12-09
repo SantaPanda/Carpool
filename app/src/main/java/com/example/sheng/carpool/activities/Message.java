@@ -2,6 +2,7 @@ package com.example.sheng.carpool.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class Message extends Activity {
     private Button message_send;
     private String str_message_input;
     private String account, carpoolID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,10 @@ public class Message extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(Message.this,response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
                     finish();
                 }
-                Toast.makeText(Message.this,response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){

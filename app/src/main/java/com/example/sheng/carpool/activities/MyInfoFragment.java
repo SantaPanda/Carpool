@@ -1,6 +1,7 @@
 package com.example.sheng.carpool.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,12 +58,28 @@ public class MyInfoFragment extends Fragment {
     private final String url=PublicData.myInfoServer;
     private String str_my_info_name,str_my_info_nickname,str_my_info_sex,str_my_info_phone;
     private String str_my_info_wechat,str_my_info_qq,str_my_info_show_me;
+    //SharedPreferences存储
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    private String account;
+    //获取账号
+    private void getAccount(){
+        //之前有登陆，直接填写数据
+        pref = getActivity().getSharedPreferences("data",getActivity().MODE_PRIVATE);
+        String a = pref.getString("account","");
+        String b = pref.getString("password","");
+        if(!a.equals("")){
+            account =a;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_info, container, false);
         componentInit();
-        myInfoServer();
+        getAccount();
+       // myInfoServer();
         return view;
     }
 
@@ -130,11 +147,14 @@ public class MyInfoFragment extends Fragment {
 
     private void changeMyInfoServer(){
         final String url= PublicData.changeMyInfoServer;
+        getAccount();
+        getValue();
         mRequestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
                     Toast.makeText(getContext(),"修改成功",Toast.LENGTH_SHORT).show();
                 }
@@ -152,6 +172,7 @@ public class MyInfoFragment extends Fragment {
                 //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","MyInfo");
+                map.put("account",account);
                 map.put("name",str_my_info_name);
                 map.put("nickName",str_my_info_nickname);
                 map.put("sex",str_my_info_sex);
@@ -165,11 +186,14 @@ public class MyInfoFragment extends Fragment {
         mRequestQueue.add(stringRequest);
     }
     private void myInfoServer(){
+        getAccount();
         //final String url="http://172.22.5.200:8080/CarpoolWeb_war_exploded/test4";
+        final String url = PublicData.myInfoServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
         Map<String,String> map=new HashMap<String,String>();
         //传一个参数,type=myInfo
         map.put("type", "myInfo");
+        map.put("account",account);
         JSONObject params=new JSONObject(map);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, params, new Response.Listener<JSONObject>() {

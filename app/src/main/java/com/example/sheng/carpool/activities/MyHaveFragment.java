@@ -148,6 +148,7 @@ public class MyHaveFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
 
                 }
@@ -194,6 +195,7 @@ public class MyHaveFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
 
                 }

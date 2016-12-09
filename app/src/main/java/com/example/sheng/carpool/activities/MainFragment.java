@@ -75,36 +75,12 @@ public class MainFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                 if(!response.equals(PublicData.FALSE_RETURN)){
-                    Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
+
                     /**
                      *将response传递到“我发布的信息”
                      */
-/*
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("[");
-                    stringBuilder.append("{");
-                    stringBuilder.append("carpool:").append("{accountID:accountID," +
-                            "name:name,date:date,departure:departure,destination:destination," +
-                            "Time:Time,price:200,totalNum:5,haveNum:3,phoneNum:phoneNum," +
-                            "detail:detail,addID:addID,commentID:commentID}").append(",");
-                    stringBuilder.append("add:").append("[{account:account11,name:name11,phone:phone11},{account:account12,name:name12,phone:phone12}]").append(",");
-                    stringBuilder.append("comment:").append("[{account:account21,name:name21,detail:detail21},{account:account22,name:name22,detail:detail22}]");
-                    stringBuilder.append("}");
-
-                    stringBuilder.append(",");
-
-                    stringBuilder.append("{");
-                    stringBuilder.append("carpool:").append("{accountID:accountID," +
-                            "name:name,date:date,departure:departure,destination:destination," +
-                            "Time:Time,price:200,totalNum:5,haveNum:3,phoneNum:phoneNum," +
-                            "detail:detail,addID:addID,commentID:commentID}").append(",");
-                    stringBuilder.append("add:").append("[{account:account11,name:name11,phone:phone11},{account:account12,name:name12,phone:phone12}]").append(",");
-                    stringBuilder.append("comment:").append("[{account:account21,name:name21,detail:detail21},{account:account22,name:name22,detail:detail22}]");
-                    stringBuilder.append("}");
-
-                    stringBuilder.append("]");
-*/
                 }
                 else {
                     Toast.makeText(getContext(),"查找不到数据，请重新输入有效地点和时间",Toast.LENGTH_SHORT).show();

@@ -54,27 +54,25 @@ public class PublishFragment extends Fragment {
     private String str_publish_pay, str_publish_people ,str_publish_have_people;
     private String str_publish_phone, str_publish_info;
     private RequestQueue mRequestQueue;
-
+    private String account;
 
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     //获取账号
-    private String getAccount(){
+    private void getAccount(){
         //之前有登陆，直接填写数据
         pref = getActivity().getSharedPreferences("data",getActivity().MODE_PRIVATE);
         String a = pref.getString("account","");
         String b = pref.getString("password","");
-        if(!a.equals("")){
-            Toast.makeText(getContext(),""+a,Toast.LENGTH_SHORT).show();
-        }
-        return a;
+        account = a;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_publish, container, false);
         componentInit();
+        getAccount();
         return view;
     }
 
@@ -111,7 +109,6 @@ public class PublishFragment extends Fragment {
     }
 
     private void publishServer(){
-        final String account = getAccount();
         getValue();
         final String url = PublicData.publishServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
