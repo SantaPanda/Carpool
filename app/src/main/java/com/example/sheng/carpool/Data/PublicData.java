@@ -2,9 +2,15 @@ package com.example.sheng.carpool.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.renderscript.Type;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 /**
  * Created by sheng on 16-11-26.
@@ -18,20 +24,30 @@ public class PublicData {
     public static final String loginServer = server+"Login";
     public static final String registerServer = server+"Register";
     public static final String changeMyInfoServer = server+"myInfo";
-    public static final String myInfoServer = server+"networks-myinfo";
-    public static final String searchServer = server+"";
-    public static final String forgetServer = server+"";
-    public static final String messageServer = server+"";
-    public static final String myPublishServer = server+"";
-    public static final String myAddServer = server+"";
-    public static final String addServer = server+"";
-    public static final String otherAccountServer = server+"";
-    public static final String publishServer = server+"net-publish";
+    public static final String myInfoServer = server+"CheckInfo";
+    public static final String searchServer = server+"Search";
+    public static final String forgetServer = server+"Forget";
+    public static final String messageServer = server+"Message";
+    public static final String myPublishServer = server+"MyPublish";
+    public static final String myAddServer = server+"MyAdd";
+    public static final String addServer = server+"Add";
+    public static final String otherAccountServer = server+"OtherAddMember";
+    public static final String publishServer = server+"Publish";
+    public static final String commentMemberServer = server+"CommentMember";
+
+
     public static final String firstproject ="http://172.22.5.200:8080/firstProject_war_exploded/server-plus-demo";
     public static final int clientStoreNum =10;   //手机数据库存储10条信息
     public static final String TRUE_RETURN = "true";
     public static final String FALSE_RETURN = "false";
-    
+
+
+/*
+    public static <T> T gsonToObject(Class<T> c,String string){
+        Gson gson = new Gson();
+        Type type = new TypeToken<List>()
+    }
+*/
     //设置EditText是否可以编辑
     public static void changeEditState(boolean value, EditText editText) {
         if (value) {

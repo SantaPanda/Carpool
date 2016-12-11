@@ -56,11 +56,11 @@ public class Search extends Activity {
         });
     }
     private void initCarpoolInfoList(){
-        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1","name1","date1","departure1",
+        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1",1,"name1","date1","departure1",
                 "destination1", "Time1", 111,14,1,"phoneNum1","detail1","addID1",
                 "commentID1");
         carpoolInfoArrayList.add(carpoolInfo1);
-        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID2","name2","date2","departure2",
+        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID2",2,"name2","date2","departure2",
                 "destination2", "Time2", 222,24,2,"phoneNum2","detail2","addID2",
                 "commentID");
         carpoolInfoArrayList.add(carpoolInfo2);

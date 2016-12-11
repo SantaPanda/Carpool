@@ -98,7 +98,7 @@ public class Search_case extends Activity {
         CarpoolInfo carpoolInfo = null;
         if(!data.equals("")){
             carpoolInfo = JsonOperation.jsonObjectAnalysis(data);
-            carpoolID = carpoolInfo.getAccountID();
+            carpoolID = ""+ carpoolInfo.getCARPOOLID();
         }
         componentInit();
         if(!data.equals("")){
@@ -107,7 +107,7 @@ public class Search_case extends Activity {
         }
         getAccount();
         //ListView中的内容
-        /*
+
     //    initPeopleInfo();
         //其他拼车成员
         peopleInfoListAdapter = new PeopleInfoListAdapter(getApplicationContext(),
@@ -119,7 +119,7 @@ public class Search_case extends Activity {
                 R.layout.case_in,commentInfoArrayList);
         ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
         commentListView.setAdapter(commentInfoListAdapter);
-        */
+    /*
         commentAddListAdapter = new CommentAddListAdapter(getApplicationContext(),
                 R.layout.case_in,commentAddArrayList);
         ListView listView = (ListView)findViewById(R.id.case_in_listview);
@@ -128,7 +128,7 @@ public class Search_case extends Activity {
                 R.layout.case_in,addInfoArrayList);
         ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
         commentListView.setAdapter(addInfoListAdapter);
-
+*/
     }
 
     //获取账号
@@ -208,7 +208,7 @@ public class Search_case extends Activity {
     }
 
     private void commentMember(){
-        final String url= PublicData.otherAccountServer;
+        final String url= PublicData.commentMemberServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
@@ -341,41 +341,47 @@ public class Search_case extends Activity {
                 //
                 case R.id.case_others:
                     otherMember();
-                    /*
+
                     if(peopleInfoListAdapter.getCount()!=0){
                         peopleInfoListAdapter.clear();
                         peopleInfoListAdapter.notifyDataSetChanged();
                     }
-                    */
+                    else {
+                        initPeopleInfo();
+                        peopleInfoListAdapter.notifyDataSetChanged();
+                    }
+                    /*
                     if(commentAddListAdapter.getCount()!=0){
                         commentAddListAdapter.clear();
                         commentAddListAdapter.notifyDataSetChanged();
                     }
                     else {
-                        //initPeopleInfo();
-                        //peopleInfoListAdapter.notifyDataSetChanged();
                         initCommentAdd();
                         commentAddListAdapter.notifyDataSetChanged();
                     }
+                    */
                     break;
                 case R.id.case_massage:
                     commentMember();
-                    /*
+
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();
                         commentInfoListAdapter.notifyDataSetChanged();
                     }
-                    */
+                    else {
+                        initCommentInfo();
+                        commentInfoListAdapter.notifyDataSetChanged();
+                    }
+                    /*
                     if(addInfoListAdapter.getCount()!=0){
                         addInfoListAdapter.clear();
                         addInfoListAdapter.notifyDataSetChanged();
                     }
                     else {
-                        //initCommentInfo();
-                        //commentInfoListAdapter.notifyDataSetChanged();
                         initAddInfo();
                         addInfoListAdapter.notifyDataSetChanged();
                     }
+                    */
                     break;
                 default:
                     break;

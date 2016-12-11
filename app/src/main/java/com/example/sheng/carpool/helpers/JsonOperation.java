@@ -13,7 +13,7 @@ public class JsonOperation {
     public static String jsonObjectStructure(CarpoolInfo carpoolInfo){
         StringBuilder json = new StringBuilder();
         json.append('{');
-        json.append("accountID:").append(carpoolInfo.getAccountID()).append(",");
+        json.append("accountID:").append(carpoolInfo.getCARPOOLID()).append(",");
         json.append("name:").append(carpoolInfo.getName()).append(",");
         json.append("date:").append(carpoolInfo.getDate()).append(",");
         json.append("departure:").append(carpoolInfo.getDeparture()).append(",");
@@ -52,7 +52,7 @@ public class JsonOperation {
             detail = jsonObject.getString("detail");
             addID = jsonObject.getString("addID");
             commentID = jsonObject.getString("commentID");
-            carpoolInfo = new CarpoolInfo(accountID,name,date,departure,destination,
+            carpoolInfo = new CarpoolInfo(accountID,1,name,date,departure,destination,
                     departureTime,price,totalNum, haveNum,phoneNum,detail,addID,commentID);
             json = jsonObjectStructure(carpoolInfo);
         } catch (JSONException e) {

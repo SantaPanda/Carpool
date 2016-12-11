@@ -4,7 +4,8 @@ package com.example.sheng.carpool.Dao;
  * Created by sheng on 16-11-28.
  */
 public class CarpoolInfo {
-    private String accountID;     //账号
+    private String account;     //账号
+    private int CARPOOLID;
     private String name;
     private String date;          //日期
     private String departure;     //出发点
@@ -18,10 +19,34 @@ public class CarpoolInfo {
     private String addID;         //要拼车的人的ID
     private String commentID;     //发表评论的人的ID
 
-    public CarpoolInfo(String accountID, String name, String date, String departure, String destination,
+    public CarpoolInfo() {
+    }
+
+    @Override
+    public String toString() {
+        return "CarpoolInfo{" +
+                "account='" + account + '\'' +
+                ", CARPOOLID=" + CARPOOLID +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", departure='" + departure + '\'' +
+                ", destination='" + destination + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", price=" + price +
+                ", totalNum=" + totalNum +
+                ", haveNum=" + haveNum +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", detail='" + detail + '\'' +
+                ", addID='" + addID + '\'' +
+                ", commentID='" + commentID + '\'' +
+                '}';
+    }
+
+    public CarpoolInfo(String account, int CARPOOLID, String name, String date, String departure, String destination,
                        String departureTime, int price, int totalNum, int haveNum,
                        String phoneNum, String detail, String addID, String commentID) {
-        this.accountID = accountID;
+        this.account = account;
+        this.CARPOOLID = CARPOOLID;
         this.name = name;
         this.date = date;
         this.departure = departure;
@@ -36,16 +61,25 @@ public class CarpoolInfo {
         this.commentID = commentID;
     }
 
+
+    public int getCARPOOLID() {
+        return CARPOOLID;
+    }
+
+    public void setCARPOOLID(int CARPOOLID) {
+        this.CARPOOLID = CARPOOLID;
+    }
+
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
 
-    public String getAccountID() {
-        return accountID;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getDate() {

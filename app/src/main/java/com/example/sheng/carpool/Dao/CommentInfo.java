@@ -4,15 +4,15 @@ package com.example.sheng.carpool.Dao;
  * Created by sheng on 16-11-28.
  */
 public class CommentInfo {
-    private int accountID;     //发表评论的人的ID
+    private int account;     //发表评论的人的ID
     private String name;
     private int carpoolID;     //所针对的拼车信息的ID
     private int aimCommentID;  //所回复的评论的ID
     private String detail;     //详细信息
 
-    public CommentInfo(int accountID, String name,int carpoolID, int aimCommentID,
+    public CommentInfo(int account, String name,int carpoolID, int aimCommentID,
                        String detail) {
-        this.accountID = accountID;
+        this.account = account;
         this.name = name;
         this.carpoolID = carpoolID;
         this.aimCommentID = aimCommentID;
@@ -27,12 +27,12 @@ public class CommentInfo {
         this.name = name;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public int getAccount() {
+        return account;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public void setAccount(int account) {
+        this.account = account;
     }
 
     public int getCarpoolID() {

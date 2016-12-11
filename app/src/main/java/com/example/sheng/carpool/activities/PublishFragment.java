@@ -134,7 +134,7 @@ public class PublishFragment extends Fragment {
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","publish");
                 map.put("account",account);
-                map.put("data",str_publish_day);
+                map.put("date",str_publish_day);
                 map.put("publish_start",str_publish_start);
                 map.put("publish_end",str_publish_end);
                 map.put("publish_time",str_publish_time);

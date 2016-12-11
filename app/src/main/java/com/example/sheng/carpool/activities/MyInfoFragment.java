@@ -192,7 +192,7 @@ public class MyInfoFragment extends Fragment {
         mRequestQueue = Volley.newRequestQueue(getContext());
         Map<String,String> map=new HashMap<String,String>();
         //传一个参数,type=myInfo
-        map.put("type", "myInfo");
+        map.put("type", "CheckInfo");
         map.put("account",account);
         JSONObject params=new JSONObject(map);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,

@@ -82,7 +82,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList1.get(i);
-                Toast.makeText(getContext(),""+carpoolInfo.getAccountID(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
                 intent.putExtra("carpool",carpool);
@@ -101,7 +101,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList2.get(i);
-                Toast.makeText(getContext(),""+carpoolInfo.getAccountID(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
                 intent.putExtra("carpool",carpool);
@@ -119,7 +119,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList3.get(i);
-                Toast.makeText(getContext(),""+carpoolInfo.getAccountID(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
                 intent.putExtra("carpool",carpool);
@@ -238,31 +238,31 @@ public class MyHaveFragment extends Fragment {
 
     //ListView用的
     private void initCarpoolInfoList1(){
-        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1.1","name1.1","date1.1","departure1.1",
+        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1.1",1,"name1.1","date1.1","departure1.1",
                 "destination1.1", "Time1.1", 111,114,1,"phoneNum1.1","detail1.1","addID1.1",
                 "commentID");
         carpoolInfoArrayList1.add(carpoolInfo1);
-        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID1.2","name1.2","date1.2","departure1.2",
+        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID1.2",2,"name1.2","date1.2","departure1.2",
                 "destination1.2", "Time1.2", 112,224,2,"phoneNum1.2","detail1.2","addID1.2",
                 "commentID");
         carpoolInfoArrayList1.add(carpoolInfo2);
     }
     private void initCarpoolInfoList2(){
-        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID2.1","name2.1","date2.1","departure2.1",
+        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID2.1",3,"name2.1","date2.1","departure2.1",
                 "destination2.1", "Time2.1",221,214,1,"phoneNum2.1","detail2.1","addID2.1",
                 "commentID");
         carpoolInfoArrayList2.add(carpoolInfo1);
-        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID2.2","name","date","departure",
+        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID2.2",4,"name","date","departure",
                 "destination", "departureTime", 100,4,1,"phoneNum","detail","addID",
                 "commentID");
         carpoolInfoArrayList2.add(carpoolInfo2);
     }
     private void initCarpoolInfoList3(){
-        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID3.1","name","date","departure",
+        CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID3.1",5,"name","date","departure",
                 "destination", "departureTime", 100,4,1,"phoneNum","detail","addID",
                 "commentID");
         carpoolInfoArrayList3.add(carpoolInfo1);
-        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID3.2","name","date","departure",
+        CarpoolInfo carpoolInfo2 = new CarpoolInfo("accountID3.2",6,"name","date","departure",
                 "destination", "departureTime", 100,4,1,"phoneNum","detail","addID",
                 "commentID");
         carpoolInfoArrayList3.add(carpoolInfo2);
