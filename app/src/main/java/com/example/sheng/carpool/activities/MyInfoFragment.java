@@ -79,7 +79,7 @@ public class MyInfoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_info, container, false);
         componentInit();
         getAccount();
-       // myInfoServer();
+        myInfoServer();
         return view;
     }
 

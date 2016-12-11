@@ -15,9 +15,10 @@ import java.util.List;
 /**
  * Created by sheng on 16-11-26.
  */
-public class PublicData {
+public class PublicData implements StatusCode{
 
-    private static final String server = "http://172.22.20.165:8080/_Server/servlet/";
+    //private static final String server = "http://172.22.20.165:8080/_Server/servlet/";
+    private static final String server = "http://101.200.39.155/_Server/servlet/";
    // private static final String server = "http://172.22.5.200:8080/CarpoolWeb_war_exploded/";
     //public static final String loginServer = server +"net-work";
     //public static final String registerServer = server+"net-work";
@@ -38,16 +39,50 @@ public class PublicData {
 
     public static final String firstproject ="http://172.22.5.200:8080/firstProject_war_exploded/server-plus-demo";
     public static final int clientStoreNum =10;   //手机数据库存储10条信息
-    public static final String TRUE_RETURN = "true";
+    public static final String TRUE_RETURN = "200";
     public static final String FALSE_RETURN = "false";
+    public static final String NO_NETWORK = "请连接网络使用！";
 
+
+    //判断返回是否无效
+    public static boolean returnFalse(String response){
+
+        if(response.equals(FAILED)){
+            return false;
+        }
+        else if(response.equals(WRONG_PASSWORD)){
+            return false;
+        }
+        else if(response.equals(FAILED_TO_EXCUTE_SQL)){
+            return false;
+        }
+        else if(response.equals(FAILED_TO_SEARCH_USERNAME)){
+            return false;
+        }
+        else if(response.equals(FAILED_TO_SEARCH_RESULT)){
+            return false;
+        }
+        else if(response.equals(HAD_IN)){
+            return false;
+        }
+        else if(response.equals(WROONG_TYPE_OF_REQUEST)){
+            return false;
+        }
+        else if(response.equals(ACCOUNT_EXISTED)){
+            return false;
+        }
+        else if(response.equals(FAILED_TOCONNECT_DATABASE)){
+            return false;
+        }
+        return true;
+    }
 
 /*
     public static <T> T gsonToObject(Class<T> c,String string){
         Gson gson = new Gson();
-        Type type = new TypeToken<List>()
+
     }
-*/
+    */
     //设置EditText是否可以编辑
     public static void changeEditState(boolean value, EditText editText) {
         if (value) {

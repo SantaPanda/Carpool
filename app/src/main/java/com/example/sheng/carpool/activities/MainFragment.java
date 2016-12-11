@@ -38,12 +38,12 @@ import java.util.Map;
 public class MainFragment extends Fragment {
 
     private View view;
+    private RequestQueue mRequestQueue;
     private EditText main_start_input;
     private EditText main_end_input;
     private EditText main_day_input;
     private Button main_sure;
     private String str_main_start_input, str_main_end_input, str_main_day_input;
-    private RequestQueue mRequestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,11 +76,12 @@ public class MainFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
-                if(!response.equals(PublicData.FALSE_RETURN)){
-
-                    /**
-                     *将response传递到“我发布的信息”
-                     */
+               // if(!response.equals(PublicData.FALSE_RETURN)){
+                if(PublicData.returnFalse(response)){
+                    Intent intent = new Intent();
+                    intent.putExtra("response", ""+response);
+                    intent.setClass(getContext(),Search.class);
+                    getContext().startActivity(intent);
                 }
                 else {
                     Toast.makeText(getContext(),"查找不到数据，请重新输入有效地点和时间",Toast.LENGTH_SHORT).show();
@@ -96,7 +97,6 @@ public class MainFragment extends Fragment {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","search");
                 map.put("main_start_input",str_main_start_input);
@@ -113,14 +113,9 @@ public class MainFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.main_sure:
                     searchServer();
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(),Search.class);
-                    getContext().startActivity(intent);
-
             }
         }
     }
-
 
     class textListener implements  View.OnFocusChangeListener {
         @Override

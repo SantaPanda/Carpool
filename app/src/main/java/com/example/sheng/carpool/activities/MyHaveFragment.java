@@ -25,10 +25,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Dao.CarpoolInfo;
+import com.example.sheng.carpool.Data.AnalyseJson;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.JsonOperation;
+import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -40,18 +42,17 @@ public class MyHaveFragment extends Fragment {
 
     private RequestQueue mRequestQueue;
     private View view;
+
     private Button my_have_publish;
     private Button my_have_join;
     private Button my_have_done;
     private TextView my_have_name;
-
     //ListView用的
     private CarpoolInfoListAdapter carpoolInfoListAdapter1,carpoolInfoListAdapter2,carpoolInfoListAdapter3;
     private List<CarpoolInfo> carpoolInfoArrayList1 = new ArrayList<>();
     private List<CarpoolInfo> carpoolInfoArrayList2 = new ArrayList<>();
     private List<CarpoolInfo> carpoolInfoArrayList3 = new ArrayList<>();
     private CarpoolInfo [] carpoolInfos;
-
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -84,14 +85,13 @@ public class MyHaveFragment extends Fragment {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList1.get(i);
                 Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                //String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                String carpool = new Gson().toJson(carpoolInfo);
                 intent.putExtra("carpool",carpool);
                 intent.setClass(getContext(),Search_case.class);
                 getContext().startActivity(intent);
-                // finish();
             }
         });
-
 
         carpoolInfoListAdapter2 = new CarpoolInfoListAdapter(getContext(),
                 R.layout.search_result,carpoolInfoArrayList2);
@@ -103,11 +103,11 @@ public class MyHaveFragment extends Fragment {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList2.get(i);
                 Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                //String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                String carpool = new Gson().toJson(carpoolInfo);
                 intent.putExtra("carpool",carpool);
                 intent.setClass(getContext(),Search_case.class);
                 getContext().startActivity(intent);
-                // finish();
             }
         });
 
@@ -125,7 +125,6 @@ public class MyHaveFragment extends Fragment {
                 intent.putExtra("carpool",carpool);
                 intent.setClass(getContext(),Search_case.class);
                 getContext().startActivity(intent);
-                // finish();
             }
         });
         return view;
@@ -141,6 +140,11 @@ public class MyHaveFragment extends Fragment {
         my_have_done.setOnClickListener(new buttonListener());
     }
 
+
+    //将response添加上次
+    private void addResponse(){
+
+    }
     private void myAdd(){
         final String url = PublicData.myAddServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
@@ -149,10 +153,17 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
-                if(response.equals(PublicData.TRUE_RETURN)){
-
+                //if(!response.equals(PublicData.FALSE_RETURN)){
+                if(PublicData.returnFalse(response)){
+                    if(carpoolInfoListAdapter2.getCount()!=0){
+                        carpoolInfoArrayList2.clear();
+                        carpoolInfoListAdapter2.notifyDataSetChanged();
+                    }
+                    else{
+                        getMyAddList(response);
+                        carpoolInfoListAdapter2.notifyDataSetChanged();
+                    }
                 }
-                Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
             @Override
@@ -162,17 +173,19 @@ public class MyHaveFragment extends Fragment {
                 if(entry!=null){
                     try {
                         String data = new String(entry.data, "UTF-8");
-                        if(!data.equals(PublicData.FALSE_RETURN)){
+                      //  if(!data.equals(PublicData.FALSE_RETURN)){
+                        if(PublicData.returnFalse(data)){
 
                         }
                         else {
-                            Toast.makeText(getContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
                         }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                 }
                 else {
+                    Toast.makeText(getContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
                 }
                 Log.e("TAG", error.getMessage(), error);
             }
@@ -196,8 +209,15 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
-                if(response.equals(PublicData.TRUE_RETURN)){
-
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    if(carpoolInfoListAdapter1.getCount()!=0){
+                        carpoolInfoArrayList1.clear();
+                        carpoolInfoListAdapter1.notifyDataSetChanged();
+                    }
+                    else{
+                        getMyPublishList(response);
+                        carpoolInfoListAdapter1.notifyDataSetChanged();
+                    }
                 }
                 Log.d("TAG", response);
             }
@@ -237,6 +257,25 @@ public class MyHaveFragment extends Fragment {
     }
 
     //ListView用的
+    private void getMyPublishList(String response){
+        List<CarpoolInfo> list = new ArrayList<CarpoolInfo>();
+        list = AnalyseJson.getCarpoolList(response);
+        if(list!=null&&!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                carpoolInfoArrayList1.add(list.get(i));
+            }
+        }
+    }
+    private void getMyAddList(String response){
+        List<CarpoolInfo> list = new ArrayList<CarpoolInfo>();
+        list = AnalyseJson.getCarpoolList(response);
+        if(list!=null&&!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                carpoolInfoArrayList2.add(list.get(i));
+            }
+        }
+    }
+    /*
     private void initCarpoolInfoList1(){
         CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1.1",1,"name1.1","date1.1","departure1.1",
                 "destination1.1", "Time1.1", 111,114,1,"phoneNum1.1","detail1.1","addID1.1",
@@ -257,6 +296,7 @@ public class MyHaveFragment extends Fragment {
                 "commentID");
         carpoolInfoArrayList2.add(carpoolInfo2);
     }
+    */
     private void initCarpoolInfoList3(){
         CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID3.1",5,"name","date","departure",
                 "destination", "departureTime", 100,4,1,"phoneNum","detail","addID",
@@ -274,6 +314,7 @@ public class MyHaveFragment extends Fragment {
                 case R.id.my_have_publish:
                     myPublish();
                     //
+                    /*
                     if(carpoolInfoListAdapter1.getCount()!=0){
                         carpoolInfoArrayList1.clear();
                         carpoolInfoListAdapter1.notifyDataSetChanged();
@@ -282,9 +323,11 @@ public class MyHaveFragment extends Fragment {
                         initCarpoolInfoList1();
                         carpoolInfoListAdapter1.notifyDataSetChanged();
                     }
+                    */
                     break;
                 case R.id.my_have_join:
                     myAdd();
+                    /*
                     if(carpoolInfoListAdapter2.getCount()!=0){
                         carpoolInfoArrayList2.clear();
                         carpoolInfoListAdapter2.notifyDataSetChanged();
@@ -293,6 +336,7 @@ public class MyHaveFragment extends Fragment {
                         initCarpoolInfoList2();
                         carpoolInfoListAdapter2.notifyDataSetChanged();
                     }
+                    */
                     break;
                 case R.id.my_have_done:
                     if(carpoolInfoListAdapter3.getCount()!=0){

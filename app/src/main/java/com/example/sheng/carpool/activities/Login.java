@@ -43,13 +43,10 @@ public class Login extends Activity {
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-//volly网络请求处理
-    public static final String TAG = Login.class
-            .getSimpleName();
+    //volly网络请求处理
+    public static final String TAG = Login.class.getSimpleName();
     private RequestQueue mRequestQueue;
     private static Login mInstance;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,22 +87,71 @@ public class Login extends Activity {
         str_login_pass_input = login_pass_input.getText().toString();
         final String url= PublicData.loginServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-/*get请求
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,"https://api.thinkpage.cn/v3/weather/now.json?key=rot2enzrehaztkdk&location=guangzhou&language=zh-Hans&unit=c",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //String s即为服务器返回的数据
-                        Log.d("cylog", s);
-                    }
-                }, new Response.ErrorListener() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
+                if(response.equals(PublicData.TRUE_RETURN)){
+                    //保存账号和密码要本地
+                    saveAccountPwToLoacl();
+                    finish();
+                }
+            }
+            },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("cylog", error.getMessage(),error);
+                Toast.makeText(Login.this,PublicData.NO_NETWORK,Toast.LENGTH_LONG).show();
+                /*
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(data.equals(PublicData.TRUE_RETURN)){
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    login_num_input.setText("请连接网络使用！");
+                }
+                */
             }
+            }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //用HashMap来存储请求参数
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","login");
+                map.put("account",str_login_num_input);
+                map.put("password",str_login_pass_input);
+                return map;
+            }
+            };
+        mRequestQueue.add(stringRequest);
+    }
+    /*get请求
+            StringRequest stringRequest = new StringRequest(Request.Method.GET,"https://api.thinkpage.cn/v3/weather/now.json?key=rot2enzrehaztkdk&location=guangzhou&language=zh-Hans&unit=c",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //String s即为服务器返回的数据
+                            Log.d("cylog", s);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("cylog", error.getMessage(),error);
+                }
 
-        });
-*/
+            });
+    */
 /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 url2, new Response.Listener<JSONArray>() {
@@ -133,52 +179,6 @@ public class Login extends Activity {
         });
         mRequestQueue.add(jsonArrayRequest);
 */
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if(response.equals(PublicData.TRUE_RETURN)){
-                    finish();
-                }
-                Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
-                Log.d("TAG", response);
-            }
-            },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Login.this,"没网络",Toast.LENGTH_LONG).show();
-                Cache.Entry entry = mRequestQueue.getCache().get(url);
-                if(entry!=null){
-                    try {
-                        String data = new String(entry.data, "UTF-8");
-                        if(data.equals(PublicData.TRUE_RETURN)){
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    login_num_input.setText("请连接网络使用！");
-                }
-                Log.e("TAG", error.getMessage(), error);
-            }
-            }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
-                Map<String,String> map = new HashMap<String,String>();
-                map.put("type","login");
-                map.put("account",str_login_num_input);
-                map.put("password",str_login_pass_input);
-                return map;
-            }
-            };
-        mRequestQueue.add(stringRequest);
-    }
 /*
     public String parseJSON(String jsonStream){
         String str="";
@@ -200,10 +200,6 @@ public class Login extends Activity {
         public void onClick(View v){
             switch (v.getId()){
                 case R.id.login_sure:
-                    /**
-                     * 暂时放在这里，应该放到网络验证成功后。。。。。。。。。。。。>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                     */
-                    saveAccountPwToLoacl();
                     login();
                     break;
                 case R.id.login_forget:

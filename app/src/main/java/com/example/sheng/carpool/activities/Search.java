@@ -10,9 +10,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sheng.carpool.Dao.CarpoolInfo;
+import com.example.sheng.carpool.Data.AnalyseJson;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.JsonOperation;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +25,17 @@ public class Search extends Activity {
     //ListView用的
     private CarpoolInfoListAdapter carpoolInfoListAdapter;
     private List<CarpoolInfo> carpoolInfoArrayList = new ArrayList<>();
-    private CarpoolInfo [] carpoolInfos;
+    private CarpoolInfo [] carpoolInfos ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Intent intent = getIntent();
+        String response = intent.getStringExtra("response");
 
         //ListView中的内容
-
-        initCarpoolInfoList();
+        getCarpoolList(response);
+      //  initCarpoolInfoList();
         carpoolInfoListAdapter = new CarpoolInfoListAdapter(getApplicationContext(),
                 R.layout.search_result,carpoolInfoArrayList);
         ListView listView = (ListView)findViewById(R.id.search_listView);
@@ -46,7 +50,8 @@ public class Search extends Activity {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList.get(i);
                // Toast.makeText(getApplicationContext(),""+carpoolInfo.getAccountID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                //String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
+                String carpool = new Gson().toJson(carpoolInfo);
                 //Toast.makeText(getApplicationContext(),carpool,Toast.LENGTH_SHORT).show();
                 intent.putExtra("carpool",carpool);
                 intent.setClass(Search.this,Search_case.class);
@@ -54,6 +59,17 @@ public class Search extends Activity {
                // finish();
             }
         });
+    }
+
+    private void getCarpoolList(String response){
+        List<CarpoolInfo> list = new ArrayList<CarpoolInfo>();
+        list = AnalyseJson.getCarpoolList(response);
+        if(list!=null&&!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                carpoolInfoArrayList.add(list.get(i));
+            }
+        }
+
     }
     private void initCarpoolInfoList(){
         CarpoolInfo carpoolInfo1 = new CarpoolInfo("accountID1",1,"name1","date1","departure1",

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.view.menu.ExpandedMenuView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ import com.example.sheng.carpool.Dao.CarpoolInfo;
 import com.example.sheng.carpool.Dao.CommentAdd;
 import com.example.sheng.carpool.Dao.CommentInfo;
 import com.example.sheng.carpool.Dao.MyInfo;
+import com.example.sheng.carpool.Data.AnalyseJson;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.ListViewHelp.AddInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.CarpoolInfoListAdapter;
@@ -37,6 +39,7 @@ import com.example.sheng.carpool.ListViewHelp.CommentInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.PeopleInfoListAdapter;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.JsonOperation;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +100,8 @@ public class Search_case extends Activity {
         String data = intent.getStringExtra("carpool");
         CarpoolInfo carpoolInfo = null;
         if(!data.equals("")){
-            carpoolInfo = JsonOperation.jsonObjectAnalysis(data);
+           // carpoolInfo = JsonOperation.jsonObjectAnalysis(data);
+            carpoolInfo = AnalyseJson.getInstance(data,CarpoolInfo.class);
             carpoolID = ""+ carpoolInfo.getCARPOOLID();
         }
         componentInit();
@@ -114,6 +118,18 @@ public class Search_case extends Activity {
                 R.layout.case_in,peopleInfoArrayList);
         ListView listView = (ListView)findViewById(R.id.case_in_listview);
         listView.setAdapter(peopleInfoListAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MyInfo myInfo = peopleInfoArrayList.get(i);
+                String account = myInfo.getAccount();
+                Intent intent = new Intent();
+                intent.setClass(Search_case.this,SeeInfo.class);
+                intent.putExtra("account",account);
+                startActivity(intent);
+                // finish();
+            }
+        });
         //留言
         commentInfoListAdapter = new CommentInfoListAdapter(getApplicationContext(),
                 R.layout.case_in,commentInfoArrayList);
@@ -175,6 +191,8 @@ public class Search_case extends Activity {
         mRequestQueue.add(stringRequest);
     }
 
+
+
     private void otherMember(){
         final String url= PublicData.otherAccountServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -182,10 +200,21 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(!response.equals(PublicData.FALSE_RETURN)){
-                    //finish();
-                }
                 Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    if(peopleInfoListAdapter.getCount()!=0){
+                        peopleInfoListAdapter.clear();
+                        peopleInfoListAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        //initPeopleInfo();
+                        getMyInfoList(response);
+                        peopleInfoListAdapter.notifyDataSetChanged();
+                    }
+                    //finish();
+
+                }
+
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
@@ -214,10 +243,20 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(!response.equals(PublicData.FALSE_RETURN)){
-                    //finish();
-                }
                 Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    if(commentInfoListAdapter.getCount()!=0){
+                        commentInfoListAdapter.clear();
+                        commentInfoListAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        //initCommentInfo();
+                        getCommentInfoList(response);
+                        commentInfoListAdapter.notifyDataSetChanged();
+                    }
+                    //finish();
+
+                }
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
@@ -266,6 +305,26 @@ public class Search_case extends Activity {
         CommentInfo commentInfo2 = new CommentInfo(2,"rui",22,222,"ruiruiruirui");
         commentInfoListAdapter.add(commentInfo2);
     }
+    //
+    private void getCommentInfoList(String response){
+        List<CommentInfo> list = new ArrayList<CommentInfo>();
+        list = AnalyseJson.getCommentInfoList(response);
+        if(list!=null&&!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                commentInfoListAdapter.add(list.get(i));
+            }
+        }
+    }
+    private void getMyInfoList(String response){
+        List<MyInfo> list = new ArrayList<MyInfo>();
+        list = AnalyseJson.getMyInfoList(response);
+        if(list!=null&&!list.isEmpty()){
+            for(int i=0;i<list.size();i++){
+                peopleInfoArrayList.add(list.get(i));
+            }
+        }
+    }
+
     private void setValue(CarpoolInfo carpoolInfo){
         case_public_name.setText(carpoolInfo.getName());
         case_people.setText(carpoolInfo.getHaveNum()+"/"+carpoolInfo.getHaveNum());
@@ -341,7 +400,7 @@ public class Search_case extends Activity {
                 //
                 case R.id.case_others:
                     otherMember();
-
+                    /*
                     if(peopleInfoListAdapter.getCount()!=0){
                         peopleInfoListAdapter.clear();
                         peopleInfoListAdapter.notifyDataSetChanged();
@@ -350,20 +409,11 @@ public class Search_case extends Activity {
                         initPeopleInfo();
                         peopleInfoListAdapter.notifyDataSetChanged();
                     }
-                    /*
-                    if(commentAddListAdapter.getCount()!=0){
-                        commentAddListAdapter.clear();
-                        commentAddListAdapter.notifyDataSetChanged();
-                    }
-                    else {
-                        initCommentAdd();
-                        commentAddListAdapter.notifyDataSetChanged();
-                    }
                     */
                     break;
                 case R.id.case_massage:
                     commentMember();
-
+                    /*
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();
                         commentInfoListAdapter.notifyDataSetChanged();
@@ -371,15 +421,6 @@ public class Search_case extends Activity {
                     else {
                         initCommentInfo();
                         commentInfoListAdapter.notifyDataSetChanged();
-                    }
-                    /*
-                    if(addInfoListAdapter.getCount()!=0){
-                        addInfoListAdapter.clear();
-                        addInfoListAdapter.notifyDataSetChanged();
-                    }
-                    else {
-                        initAddInfo();
-                        addInfoListAdapter.notifyDataSetChanged();
                     }
                     */
                     break;

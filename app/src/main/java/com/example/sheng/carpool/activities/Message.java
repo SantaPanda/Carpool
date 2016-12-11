@@ -62,7 +62,6 @@ public class Message extends Activity {
                 if(response.equals(PublicData.TRUE_RETURN)){
                     finish();
                 }
-                Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
             @Override
@@ -73,7 +72,6 @@ public class Message extends Activity {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","message");
                 map.put("message",str_message_input);
