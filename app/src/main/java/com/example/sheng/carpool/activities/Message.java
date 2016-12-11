@@ -66,7 +66,7 @@ public class Message extends Activity {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Message.this,"没网络",Toast.LENGTH_LONG).show();
+                Toast.makeText(Message.this,PublicData.NO_NETWORK,Toast.LENGTH_LONG).show();
                 Log.e("TAG", error.getMessage(), error);
             }
         }){

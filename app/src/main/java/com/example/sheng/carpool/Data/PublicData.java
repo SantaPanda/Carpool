@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class PublicData implements StatusCode{
 
-    //private static final String server = "http://172.22.20.165:8080/_Server/servlet/";
-    private static final String server = "http://101.200.39.155/_Server/servlet/";
+    private static final String server = "http://172.22.20.165:8080/_Server/servlet/";
+    //private static final String server = "http://101.200.39.155/_Server/servlet/";
    // private static final String server = "http://172.22.5.200:8080/CarpoolWeb_war_exploded/";
     //public static final String loginServer = server +"net-work";
     //public static final String registerServer = server+"net-work";

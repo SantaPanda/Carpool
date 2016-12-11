@@ -25,6 +25,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.sheng.carpool.Dao.MyInfo;
+import com.example.sheng.carpool.Data.AnalyseJson;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.R;
 
@@ -41,6 +43,8 @@ import java.util.Map;
 public class MyInfoFragment extends Fragment {
 
     private View view;
+    private RequestQueue mRequestQueue;
+    private MyInfo myInfo;
     private EditText my_info_name;
     private EditText my_info_nickname;
     private EditText my_info_sex;
@@ -54,14 +58,13 @@ public class MyInfoFragment extends Fragment {
     private TextView my_info_good;
     private TextView my_info_bad;
     private TextView my_info_credit;
-    private RequestQueue mRequestQueue;
-    private final String url=PublicData.myInfoServer;
     private String str_my_info_name,str_my_info_nickname,str_my_info_sex,str_my_info_phone;
     private String str_my_info_wechat,str_my_info_qq,str_my_info_show_me;
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private String account;
+
     //获取账号
     private void getAccount(){
         //之前有登陆，直接填写数据
@@ -111,6 +114,7 @@ public class MyInfoFragment extends Fragment {
         str_my_info_qq=my_info_qq.getText().toString();
         str_my_info_show_me=my_info_show_me.getText().toString();
     }
+
     //设置所有EditText是否可编辑
     private void changeEdit(boolean flag){
         PublicData.changeEditState(flag,my_info_name);
@@ -121,6 +125,27 @@ public class MyInfoFragment extends Fragment {
         PublicData.changeEditState(flag,my_info_qq);
         PublicData.changeEditState(flag,my_info_show_me);
     }
+
+    private void getPeopleInfo(String response){
+        myInfo = AnalyseJson.getInstance(response, MyInfo.class);
+    }
+    private void setValue(){
+        my_info_name.setText(myInfo.getName());
+        my_info_nickname.setText(myInfo.getNickname());
+        my_info_sex.setText(myInfo.getSex());
+        my_info_phone.setText(myInfo.getPhone());
+        my_info_wechat.setText(myInfo.getWechat());
+        my_info_qq.setText(myInfo.getQq());
+        my_info_show_me.setText(myInfo.getIntroduce());
+        int int_good=myInfo.getGood();
+        int int_bad=myInfo.getBad();
+        my_info_good.setText(""+int_good);
+        my_info_bad.setText(""+int_bad);
+        DecimalFormat df = new DecimalFormat(".00");
+        Double double_credit= 100 *(double)int_good/(int_good+int_bad);
+        my_info_credit.setText(""+df.format(double_credit)+"%");
+    }
+    /*
     //解析JsonObject
     private void parseJsonObject(JSONObject jsonObject){
         String str_good="", str_bad="";
@@ -144,7 +169,7 @@ public class MyInfoFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
+*/
     private void changeMyInfoServer(){
         final String url= PublicData.changeMyInfoServer;
         getAccount();
@@ -185,6 +210,53 @@ public class MyInfoFragment extends Fragment {
         };
         mRequestQueue.add(stringRequest);
     }
+
+    private void myInfoServer(){
+        getAccount();
+        final String url = PublicData.myInfoServer;
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+             //   Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+                if(PublicData.returnFalse(response)){
+                    getPeopleInfo(response);
+                    setValue();
+                }
+                Log.d("TAG", response);
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        if(PublicData.returnFalse(data)){
+                            getPeopleInfo(data);
+                            setValue();
+                        }
+                        else {
+                            Toast.makeText(getContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type", "CheckInfo");
+                map.put("account",account);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
+    /*
     private void myInfoServer(){
         getAccount();
         //final String url="http://172.22.5.200:8080/CarpoolWeb_war_exploded/test4";
@@ -255,10 +327,10 @@ public class MyInfoFragment extends Fragment {
             }
         });
         mRequestQueue.add(jsonArrayRequest);
-*/
+
 
     }
-
+*/
     class buttonListener implements View.OnClickListener {
         public void onClick(View v){
             switch (v.getId()){

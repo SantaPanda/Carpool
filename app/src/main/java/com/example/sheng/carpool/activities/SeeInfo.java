@@ -71,8 +71,7 @@ public class SeeInfo extends Activity {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"请连接网络！",Toast.LENGTH_SHORT).show();
-                Log.e("TAG", error.getMessage(), error);
+                Toast.makeText(getApplicationContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -100,7 +99,6 @@ public class SeeInfo extends Activity {
         see_info_good.setText(""+myInfo.getGood());
         see_info_bad.setText(""+myInfo.getBad());
         see_info_show_other.setText(myInfo.getIntroduce());
-
     }
 
     private void componentInit(){

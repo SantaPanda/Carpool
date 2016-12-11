@@ -42,7 +42,6 @@ public class MyHaveFragment extends Fragment {
 
     private RequestQueue mRequestQueue;
     private View view;
-
     private Button my_have_publish;
     private Button my_have_join;
     private Button my_have_done;
@@ -141,9 +140,16 @@ public class MyHaveFragment extends Fragment {
     }
 
 
-    //将response添加上次
-    private void addResponse(){
-
+    //将response添加上去
+    private void addCarpoolResponse(String response){
+        if(carpoolInfoListAdapter2.getCount()!=0){
+            carpoolInfoArrayList2.clear();
+            carpoolInfoListAdapter2.notifyDataSetChanged();
+        }
+        else{
+            getMyAddList(response);
+            carpoolInfoListAdapter2.notifyDataSetChanged();
+        }
     }
     private void myAdd(){
         final String url = PublicData.myAddServer;
@@ -155,6 +161,8 @@ public class MyHaveFragment extends Fragment {
                 Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                 //if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
+                    addCarpoolResponse(response);
+                    /*
                     if(carpoolInfoListAdapter2.getCount()!=0){
                         carpoolInfoArrayList2.clear();
                         carpoolInfoListAdapter2.notifyDataSetChanged();
@@ -163,6 +171,7 @@ public class MyHaveFragment extends Fragment {
                         getMyAddList(response);
                         carpoolInfoListAdapter2.notifyDataSetChanged();
                     }
+                    */
                 }
             }
         },new Response.ErrorListener(){
@@ -175,7 +184,77 @@ public class MyHaveFragment extends Fragment {
                         String data = new String(entry.data, "UTF-8");
                       //  if(!data.equals(PublicData.FALSE_RETURN)){
                         if(PublicData.returnFalse(data)){
+                            addCarpoolResponse(data);
+                        }
+                        else {
+                            Toast.makeText(getContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
+                }
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("type","myAdd");
+                map.put("account",account);
+                return map;
+            }
+        };
+        mRequestQueue.add(stringRequest);
+    }
 
+    //将response添加上去
+    private void publishCarpoolResponse(String response){
+        if(carpoolInfoListAdapter1.getCount()!=0){
+            carpoolInfoArrayList1.clear();
+            carpoolInfoListAdapter1.notifyDataSetChanged();
+        }
+        else{
+            getMyPublishList(response);
+            carpoolInfoListAdapter1.notifyDataSetChanged();
+        }
+    }
+    private void myPublish(){
+        final String url= PublicData.myPublishServer;
+        mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+                if(PublicData.returnFalse(response)){
+                    publishCarpoolResponse(response);
+                }
+                /*
+                if(!response.equals(PublicData.FALSE_RETURN)){
+                    if(carpoolInfoListAdapter1.getCount()!=0){
+                        carpoolInfoArrayList1.clear();
+                        carpoolInfoListAdapter1.notifyDataSetChanged();
+                    }
+                    else{
+                        getMyPublishList(response);
+                        carpoolInfoListAdapter1.notifyDataSetChanged();
+                    }
+                }
+                */
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
+                Cache.Entry entry = mRequestQueue.getCache().get(url);
+                if(entry!=null){
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        //if(!data.equals(PublicData.FALSE_RETURN)){
+                        if(PublicData.returnFalse(data)){
+                            publishCarpoolResponse(data);
                         }
                         else {
                             Toast.makeText(getContext(),PublicData.NO_NETWORK,Toast.LENGTH_SHORT).show();
@@ -192,61 +271,6 @@ public class MyHaveFragment extends Fragment {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
-                Map<String,String> map = new HashMap<String,String>();
-                map.put("type","myAdd");
-                map.put("account",account);
-                return map;
-            }
-        };
-        mRequestQueue.add(stringRequest);
-    }
-    private void myPublish(){
-        final String url= PublicData.myPublishServer;
-        mRequestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
-                if(!response.equals(PublicData.FALSE_RETURN)){
-                    if(carpoolInfoListAdapter1.getCount()!=0){
-                        carpoolInfoArrayList1.clear();
-                        carpoolInfoListAdapter1.notifyDataSetChanged();
-                    }
-                    else{
-                        getMyPublishList(response);
-                        carpoolInfoListAdapter1.notifyDataSetChanged();
-                    }
-                }
-                Log.d("TAG", response);
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
-                Cache.Entry entry = mRequestQueue.getCache().get(url);
-                if(entry!=null){
-                    try {
-                        String data = new String(entry.data, "UTF-8");
-                        if(!data.equals(PublicData.FALSE_RETURN)){
-
-                        }
-                        else {
-                            Toast.makeText(getContext(),"请连接网络使用！",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                }
-                Log.e("TAG", error.getMessage(), error);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","myPublish");
                 map.put("account",account);
@@ -313,7 +337,6 @@ public class MyHaveFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.my_have_publish:
                     myPublish();
-                    //
                     /*
                     if(carpoolInfoListAdapter1.getCount()!=0){
                         carpoolInfoArrayList1.clear();
@@ -338,6 +361,7 @@ public class MyHaveFragment extends Fragment {
                     }
                     */
                     break;
+                /*
                 case R.id.my_have_done:
                     if(carpoolInfoListAdapter3.getCount()!=0){
                         carpoolInfoArrayList3.clear();
@@ -347,6 +371,9 @@ public class MyHaveFragment extends Fragment {
                         initCarpoolInfoList3();
                         carpoolInfoListAdapter3.notifyDataSetChanged();
                     }
+                    break;
+                    */
+                default:
                     break;
             }
         }

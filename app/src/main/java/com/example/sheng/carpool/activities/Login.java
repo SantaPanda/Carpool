@@ -98,6 +98,9 @@ public class Login extends Activity {
                     saveAccountPwToLoacl();
                     finish();
                 }
+                else {
+                    Toast.makeText(Login.this,"请输入有效账号和密码或连接网络",Toast.LENGTH_SHORT).show();
+                }
             }
             },new Response.ErrorListener(){
             @Override
