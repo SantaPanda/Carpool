@@ -102,6 +102,7 @@ public class Forget extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.forget_sure:
+                    getValue();
                     forget();
                     break;
                 default:

@@ -1,12 +1,15 @@
 package com.example.sheng.carpool.Data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.renderscript.Type;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.sheng.carpool.activities.Login;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,6 +46,7 @@ public class PublicData implements StatusCode{
     public static final String FALSE_RETURN = "false";
     public static final String NO_NETWORK = "请连接网络使用！";
 
+//不包括FAILED_TO_SEARCH_RESULT,即115
     public static boolean returnNoInfo(String response){
 
         if(response.equals(FAILED)){
@@ -71,6 +75,37 @@ public class PublicData implements StatusCode{
         }
         return true;
     }
+    public static void returnToast(Context context,String response){
+
+        if(response.equals(FAILED)){
+
+        }
+        else if(response.equals(WRONG_PASSWORD)){
+
+        }
+        else if(response.equals(FAILED_TO_EXCUTE_SQL)){
+
+        }
+        else if(response.equals(FAILED_TO_SEARCH_USERNAME)){
+
+        }
+        else if(response.equals(FAILED_TO_SEARCH_RESULT)){
+            Toast.makeText(context,"搜索不到",Toast.LENGTH_SHORT).show();
+        }
+        else if(response.equals(HAD_IN)){
+
+        }
+        else if(response.equals(WROONG_TYPE_OF_REQUEST)){
+
+        }
+        else if(response.equals(ACCOUNT_EXISTED)){
+
+        }
+        else if(response.equals(FAILED_TOCONNECT_DATABASE)){
+
+        }
+
+    }
 
     //判断返回是否无效
     public static boolean returnFalse(String response){
@@ -85,6 +120,7 @@ public class PublicData implements StatusCode{
             return false;
         }
         else if(response.equals(FAILED_TO_SEARCH_USERNAME)){
+
             return false;
         }
         else if(response.equals(FAILED_TO_SEARCH_RESULT)){
@@ -102,6 +138,7 @@ public class PublicData implements StatusCode{
         else if(response.equals(FAILED_TOCONNECT_DATABASE)){
             return false;
         }
+
         return true;
     }
 
@@ -162,4 +199,9 @@ public class PublicData implements StatusCode{
         return true;
     }
 
+    public static void login(Context context){
+        Intent intent1 = new Intent();
+        intent1.setClass(context,Login.class);
+        context.startActivity(intent1);
+    }
 }

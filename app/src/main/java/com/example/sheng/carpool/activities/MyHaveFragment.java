@@ -55,7 +55,7 @@ public class MyHaveFragment extends Fragment {
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private String account;
+    private String account="";
     //获取账号
     private void getAccount(){
         //之前有登陆，直接填写数据
@@ -160,6 +160,7 @@ public class MyHaveFragment extends Fragment {
             public void onResponse(String response) {
               //  Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                 //if(!response.equals(PublicData.FALSE_RETURN)){
+                PublicData.returnToast(getContext(),response);
                 if(PublicData.returnFalse(response)){
                     addCarpoolResponse(response);
                     /*
@@ -177,7 +178,6 @@ public class MyHaveFragment extends Fragment {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
                 Cache.Entry entry = mRequestQueue.getCache().get(url);
                 if(entry!=null){
                     try {
@@ -228,6 +228,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onResponse(String response) {
         //        Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+                PublicData.returnToast(getContext(),response);
                 if(PublicData.returnFalse(response)){
                     publishCarpoolResponse(response);
                 }
@@ -247,7 +248,7 @@ public class MyHaveFragment extends Fragment {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"没网络",Toast.LENGTH_LONG).show();
+
                 Cache.Entry entry = mRequestQueue.getCache().get(url);
                 if(entry!=null){
                     try {
@@ -336,7 +337,13 @@ public class MyHaveFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.my_have_publish:
-                    myPublish();
+                    if(!account.equals("")){
+                        myPublish();
+                    }
+                    else {
+                        PublicData.login(getContext());
+                    }
+
                     /*
                     if(carpoolInfoListAdapter1.getCount()!=0){
                         carpoolInfoArrayList1.clear();
@@ -349,7 +356,13 @@ public class MyHaveFragment extends Fragment {
                     */
                     break;
                 case R.id.my_have_join:
-                    myAdd();
+                    if(!account.equals("")){
+                        myAdd();
+                    }
+                    else {
+                        PublicData.login(getContext());
+                    }
+
                     /*
                     if(carpoolInfoListAdapter2.getCount()!=0){
                         carpoolInfoArrayList2.clear();

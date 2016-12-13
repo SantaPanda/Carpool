@@ -205,7 +205,7 @@ public class Search_case extends Activity {
             @Override
             public void onResponse(String response) {
                 LogOut.printLog(getLocalClassName()+":"+response);
-
+                PublicData.returnToast(getApplicationContext(),response);
                // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
                // if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
@@ -218,6 +218,9 @@ public class Search_case extends Activity {
                         getMyInfoList(response);
                         peopleInfoListAdapter.notifyDataSetChanged();
                     }
+                }
+                else {
+                //    Toast.makeText(getApplicationContext(),"没有人加入",Toast.LENGTH_SHORT).show();
                 }
                 Log.d("TAG", response);
             }
@@ -247,11 +250,10 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //Log.d("commentMember",response);
                 LogOut.printLog(getLocalClassName()+":"+response);
-               // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                PublicData.returnToast(getApplicationContext(),response);
                 if(PublicData.returnFalse(response)){
-                //if(!response.equals(PublicData.FALSE_RETURN)){
+                    Log.d("response",response);
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();
                         commentInfoListAdapter.notifyDataSetChanged();
@@ -262,7 +264,11 @@ public class Search_case extends Activity {
                         commentInfoListAdapter.notifyDataSetChanged();
                     }
                 }
+                else {
+                    Toast.makeText(getApplicationContext(),"没有人留言",Toast.LENGTH_SHORT).show();
+                }
                 Log.d("TAG", response);
+
             }
         },new Response.ErrorListener(){
             @Override
@@ -392,15 +398,25 @@ public class Search_case extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.case_send_massage:
-                    Intent intent = new Intent();
-                    intent.setClass(Search_case.this,Message.class);
-                    intent.putExtra("account",account);
-                    intent.putExtra("carpoolID",carpoolID);
-                    Search_case.this.startActivity(intent);
-                    //finish();
+                    if(!account.equals("")){
+                        Intent intent = new Intent();
+                        intent.setClass(Search_case.this,Message.class);
+                        intent.putExtra("account",account);
+                        intent.putExtra("carpoolID",carpoolID);
+                        Search_case.this.startActivity(intent);
+                        //finish();
+                    }
+                    else {
+                        PublicData.login(Search_case.this);
+                    }
                     break;
                 case R.id.case_join_in:
-                    dialog();
+                    if(!account.equals("")){
+                        dialog();
+                    }
+                    else {
+                        PublicData.login(Search_case.this);
+                    }
                     break;
                 //
                 case R.id.case_others:
@@ -418,7 +434,13 @@ public class Search_case extends Activity {
                     break;
                 case R.id.case_massage:
                     Log.d("message","点击");
-                    commentMember();
+                    if(!account.equals("")){
+                        commentMember();
+                    }
+                    else {
+                        PublicData.login(Search_case.this);
+                    }
+
                     /*
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();

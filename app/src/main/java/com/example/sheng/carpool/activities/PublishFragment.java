@@ -153,7 +153,12 @@ public class PublishFragment extends Fragment {
             switch (v.getId()){
                 case R.id.publish_sure:
                     getAccount();
-                    publishServer();
+                    if(!account.equals("")){
+                        publishServer();
+                    }
+                    else {
+                        PublicData.login(getContext());
+                    }
                     break;
                 default:
                     break;

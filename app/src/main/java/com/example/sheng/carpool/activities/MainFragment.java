@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Data.PublicData;
+import com.example.sheng.carpool.Data.StatusCode;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.LogOut;
 
@@ -84,16 +85,17 @@ public class MainFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 LogOut.printLog("MainFragment:"+response);
-              //  Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
-               // if(!response.equals(PublicData.FALSE_RETURN)){
+                PublicData.returnToast(getContext(),response);
                 if(PublicData.returnFalse(response)){
+                    LogOut.printLog("MainFragment2:"+response);
                     Intent intent = new Intent();
                     intent.putExtra("response", ""+response);
                     intent.setClass(getContext(),Search.class);
                     getContext().startActivity(intent);
                 }
                 else {
-                    Toast.makeText(getContext(),"查找不到数据，请重新输入有效地点和时间",Toast.LENGTH_SHORT).show();
+                    LogOut.printLog("MainFragment3:"+response);
+                  //  Toast.makeText(getContext(),"查找不到数据，请重新输入有效地点和时间",Toast.LENGTH_SHORT).show();
                 }
                 Log.d("TAG", response);
             }

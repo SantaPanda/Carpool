@@ -78,7 +78,7 @@ public class Register extends Activity {
             @Override
             public void onResponse(String response) {
                 if(response.equals(PublicData.TRUE_RETURN)){
-
+                    finish();
                 }
        //         Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
@@ -108,6 +108,7 @@ public class Register extends Activity {
         public void onClick(View v){
             switch (v.getId()){
                 case R.id.register_sure:
+                    getValue();
                     if(FillIn()){
                         if(str_register_password_input.equals(str_register_again_password_input)){
                             register();

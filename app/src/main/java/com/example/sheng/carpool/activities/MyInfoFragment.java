@@ -76,19 +76,29 @@ public class MyInfoFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_info, container, false);
         componentInit();
         getAccount();
+        login();
         if(!account.equals("")){
             myInfoServer();
         }
-
         return view;
     }
-
+    private void login(){
+        //第一次强制登陆
+        if(account.equals("")){
+            //强制登陆
+            Intent intent=new Intent();
+            intent.setClass(getContext(),Login.class);
+            getContext().startActivity(intent);
+        }
+    }
     //组件初始化，为组件监听
     private void componentInit(){
         my_info_good = (TextView)view.findViewById(R.id.my_info_good);
