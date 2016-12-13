@@ -29,6 +29,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Data.PublicData;
 import com.example.sheng.carpool.R;
+import com.example.sheng.carpool.helpers.LogOut;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -68,20 +70,20 @@ public class MainFragment extends Fragment {
         str_main_day_input = main_day_input.getText().toString();
     }
     private boolean FillIn(){
-        if(!str_main_start_input.equals("")&&!str_main_end_input.equals("")&&!
-                str_main_day_input.equals("")){
+        if(!str_main_start_input.equals("")&&!str_main_end_input.equals("")&&
+                !str_main_day_input.equals("")){
             return true;
         }
         return false;
     }
     private void searchServer(){
-        getValue();
         final String url= PublicData.searchServer;
         mRequestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                LogOut.printLog("MainFragment:"+response);
               //  Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                // if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
@@ -119,6 +121,7 @@ public class MainFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.main_sure:
+                    getValue();
                     if(FillIn()){
                         searchServer();
                     }

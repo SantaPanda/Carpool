@@ -43,6 +43,34 @@ public class PublicData implements StatusCode{
     public static final String FALSE_RETURN = "false";
     public static final String NO_NETWORK = "请连接网络使用！";
 
+    public static boolean returnNoInfo(String response){
+
+        if(response.equals(FAILED)){
+            return false;
+        }
+        else if(response.equals(WRONG_PASSWORD)){
+            return false;
+        }
+        else if(response.equals(FAILED_TO_EXCUTE_SQL)){
+            return false;
+        }
+        else if(response.equals(FAILED_TO_SEARCH_USERNAME)){
+            return false;
+        }
+        else if(response.equals(HAD_IN)){
+            return false;
+        }
+        else if(response.equals(WROONG_TYPE_OF_REQUEST)){
+            return false;
+        }
+        else if(response.equals(ACCOUNT_EXISTED)){
+            return false;
+        }
+        else if(response.equals(FAILED_TOCONNECT_DATABASE)){
+            return false;
+        }
+        return true;
+    }
 
     //判断返回是否无效
     public static boolean returnFalse(String response){

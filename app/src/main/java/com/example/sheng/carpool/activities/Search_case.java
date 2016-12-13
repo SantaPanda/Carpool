@@ -39,6 +39,7 @@ import com.example.sheng.carpool.ListViewHelp.CommentInfoListAdapter;
 import com.example.sheng.carpool.ListViewHelp.PeopleInfoListAdapter;
 import com.example.sheng.carpool.R;
 import com.example.sheng.carpool.helpers.JsonOperation;
+import com.example.sheng.carpool.helpers.LogOut;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -203,7 +204,8 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("response",response);
+                LogOut.printLog(getLocalClassName()+":"+response);
+
                // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
                // if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
@@ -245,7 +247,8 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("commentMember",response);
+                //Log.d("commentMember",response);
+                LogOut.printLog(getLocalClassName()+":"+response);
                // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
                 if(PublicData.returnFalse(response)){
                 //if(!response.equals(PublicData.FALSE_RETURN)){
@@ -302,9 +305,9 @@ public class Search_case extends Activity {
         peopleInfoArrayList.add(myInfo2);
     }
     private void initCommentInfo(){
-        CommentInfo commentInfo1 = new CommentInfo(1,"zhou",11,111,"zhouzhouzhou");
+        CommentInfo commentInfo1 = new CommentInfo(""+1,"zhou",11,111,"zhouzhouzhou");
         commentInfoListAdapter.add(commentInfo1);
-        CommentInfo commentInfo2 = new CommentInfo(2,"rui",22,222,"ruiruiruirui");
+        CommentInfo commentInfo2 = new CommentInfo(""+2,"rui",22,222,"ruiruiruirui");
         commentInfoListAdapter.add(commentInfo2);
     }
     //
