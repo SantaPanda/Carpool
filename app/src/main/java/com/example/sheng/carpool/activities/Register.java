@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sheng.carpool.Data.PublicData;
+import com.example.sheng.carpool.ListViewHelp.PeopleInfoListAdapter;
 import com.example.sheng.carpool.R;
 
 import java.io.UnsupportedEncodingException;
@@ -57,6 +58,15 @@ public class Register extends Activity {
         str_register_again_password_input=register_again_password_input.getText().toString();
         str_register_phone_input=register_phone_input.getText().toString();
     }
+
+    private boolean FillIn(){
+        if(!str_register_num_input.equals("")&&!str_register_phone_input.equals("")&&
+                !str_register_again_password_input.equals("")&&
+                !str_register_password_input.equals("")){
+            return true;
+        }
+        return false;
+    }
     //
     private void register(){
         getValue();
@@ -68,14 +78,9 @@ public class Register extends Activity {
             @Override
             public void onResponse(String response) {
                 if(response.equals(PublicData.TRUE_RETURN)){
-                    /*
-                    Intent intent1 = new Intent();
-                    intent1.setClass(Login.this,MainActivity.class);
-                    Login.this.startActivity(intent1);
-                    finish();
-                    */
+
                 }
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+       //         Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
@@ -103,7 +108,14 @@ public class Register extends Activity {
         public void onClick(View v){
             switch (v.getId()){
                 case R.id.register_sure:
-                    register();
+                    if(FillIn()){
+                        if(str_register_password_input.equals(str_register_again_password_input)){
+                            register();
+                        }
+                        else {
+                            Toast.makeText(Register.this,"两次输入的密码不一样",Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     break;
                 default:
                     break;

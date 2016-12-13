@@ -119,7 +119,7 @@ public class PublishFragment extends Fragment {
                 if(response.equals(PublicData.TRUE_RETURN)){
                     Toast.makeText(getContext(),"发布成功!",Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){

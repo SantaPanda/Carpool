@@ -58,7 +58,7 @@ public class Message extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Message.this,response,Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(Message.this,response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
                     finish();
                 }

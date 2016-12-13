@@ -90,6 +90,13 @@ public class Forget extends Activity {
         };
         mRequestQueue.add(stringRequest);
     }
+    /*
+    //确保填写所有
+    private boolean fillIn(){
+        if()
+        return true;
+    }
+    */
     class buttonListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {

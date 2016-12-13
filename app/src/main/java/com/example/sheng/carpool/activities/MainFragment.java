@@ -67,6 +67,13 @@ public class MainFragment extends Fragment {
         str_main_end_input = main_end_input.getText().toString();
         str_main_day_input = main_day_input.getText().toString();
     }
+    private boolean FillIn(){
+        if(!str_main_start_input.equals("")&&!str_main_end_input.equals("")&&!
+                str_main_day_input.equals("")){
+            return true;
+        }
+        return false;
+    }
     private void searchServer(){
         getValue();
         final String url= PublicData.searchServer;
@@ -75,7 +82,7 @@ public class MainFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                // if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
                     Intent intent = new Intent();
@@ -112,7 +119,9 @@ public class MainFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.main_sure:
-                    searchServer();
+                    if(FillIn()){
+                        searchServer();
+                    }
             }
         }
     }

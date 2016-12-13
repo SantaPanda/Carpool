@@ -158,7 +158,7 @@ public class MyHaveFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(),""+response,Toast.LENGTH_SHORT).show();
                 //if(!response.equals(PublicData.FALSE_RETURN)){
                 if(PublicData.returnFalse(response)){
                     addCarpoolResponse(response);
@@ -227,7 +227,7 @@ public class MyHaveFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                 if(PublicData.returnFalse(response)){
                     publishCarpoolResponse(response);
                 }

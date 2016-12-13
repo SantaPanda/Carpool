@@ -49,7 +49,6 @@ public class SeeInfo extends Activity {
         Intent intent = getIntent();
         account = intent.getStringExtra("account");
         Log.d("SeeInfo",account);
-        Toast.makeText(getApplicationContext(),account,Toast.LENGTH_SHORT).show();
         seePeopleInfoServer();
     }
 
@@ -60,7 +59,7 @@ public class SeeInfo extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
+     //           Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                 if(!response.equals(PublicData.FALSE_RETURN)){
                     Log.d("SeeInfo",response);
                     getPeopleInfo(response);

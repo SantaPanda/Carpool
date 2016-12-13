@@ -96,23 +96,19 @@ public class Search_case extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_case);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String data = intent.getStringExtra("carpool");
         CarpoolInfo carpoolInfo = null;
         if(!data.equals("")){
-           // carpoolInfo = JsonOperation.jsonObjectAnalysis(data);
             carpoolInfo = AnalyseJson.getInstance(data,CarpoolInfo.class);
             carpoolID = ""+ carpoolInfo.getCARPOOLID();
         }
         componentInit();
         if(!data.equals("")){
-            Toast.makeText(getApplicationContext(),""+carpoolInfo.getName(),Toast.LENGTH_LONG).show();
             setValue(carpoolInfo);
         }
         getAccount();
         //ListView中的内容
-
-    //    initPeopleInfo();
         //其他拼车成员
         peopleInfoListAdapter = new PeopleInfoListAdapter(getApplicationContext(),
                 R.layout.case_in,peopleInfoArrayList);
@@ -127,7 +123,6 @@ public class Search_case extends Activity {
                 intent.setClass(Search_case.this,SeeInfo.class);
                 intent.putExtra("account",account);
                 startActivity(intent);
-                // finish();
             }
         });
         //留言
@@ -135,6 +130,17 @@ public class Search_case extends Activity {
                 R.layout.case_in,commentInfoArrayList);
         ListView commentListView = (ListView)findViewById(R.id.case_have_massage);
         commentListView.setAdapter(commentInfoListAdapter);
+        commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CommentInfo commentInfo = commentInfoArrayList.get(i);
+                String account = ""+commentInfo.getAccount();
+                Intent intent = new Intent();
+                intent.setClass(Search_case.this,SeeInfo.class);
+                intent.putExtra("account",account);
+                startActivity(intent);
+            }
+        });
     /*
         commentAddListAdapter = new CommentAddListAdapter(getApplicationContext(),
                 R.layout.case_in,commentAddArrayList);
@@ -165,10 +171,10 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(!response.equals(PublicData.FALSE_RETURN)){
-                    //finish();
+                if(response.equals(PublicData.TRUE_RETURN)){
+                    Toast.makeText(Search_case.this,"加入成功",Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
@@ -180,7 +186,6 @@ public class Search_case extends Activity {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //用HashMap来存储请求参数
                 Map<String,String> map = new HashMap<String,String>();
                 map.put("type","add");
                 map.put("account",account);
@@ -191,8 +196,6 @@ public class Search_case extends Activity {
         mRequestQueue.add(stringRequest);
     }
 
-
-
     private void otherMember(){
         final String url= PublicData.otherAccountServer;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -200,8 +203,10 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
-                if(!response.equals(PublicData.FALSE_RETURN)){
+                Log.d("response",response);
+               // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+               // if(!response.equals(PublicData.FALSE_RETURN)){
+                if(PublicData.returnFalse(response)){
                     if(peopleInfoListAdapter.getCount()!=0){
                         peopleInfoListAdapter.clear();
                         peopleInfoListAdapter.notifyDataSetChanged();
@@ -211,10 +216,7 @@ public class Search_case extends Activity {
                         getMyInfoList(response);
                         peopleInfoListAdapter.notifyDataSetChanged();
                     }
-                    //finish();
-
                 }
-
                 Log.d("TAG", response);
             }
         },new Response.ErrorListener(){
@@ -243,8 +245,10 @@ public class Search_case extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
-                if(!response.equals(PublicData.FALSE_RETURN)){
+                Log.d("commentMember",response);
+               // Toast.makeText(Search_case.this,response,Toast.LENGTH_SHORT).show();
+                if(PublicData.returnFalse(response)){
+                //if(!response.equals(PublicData.FALSE_RETURN)){
                     if(commentInfoListAdapter.getCount()!=0){
                         commentInfoListAdapter.clear();
                         commentInfoListAdapter.notifyDataSetChanged();
@@ -254,8 +258,6 @@ public class Search_case extends Activity {
                         getCommentInfoList(response);
                         commentInfoListAdapter.notifyDataSetChanged();
                     }
-                    //finish();
-
                 }
                 Log.d("TAG", response);
             }
@@ -412,6 +414,7 @@ public class Search_case extends Activity {
                     */
                     break;
                 case R.id.case_massage:
+                    Log.d("message","点击");
                     commentMember();
                     /*
                     if(commentInfoListAdapter.getCount()!=0){

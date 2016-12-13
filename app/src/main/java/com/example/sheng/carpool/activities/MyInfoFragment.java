@@ -63,7 +63,7 @@ public class MyInfoFragment extends Fragment {
     //SharedPreferences存储
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private String account;
+    private String account="";
 
     //获取账号
     private void getAccount(){
@@ -82,7 +82,10 @@ public class MyInfoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_info, container, false);
         componentInit();
         getAccount();
-        myInfoServer();
+        if(!account.equals("")){
+            myInfoServer();
+        }
+
         return view;
     }
 
@@ -179,7 +182,7 @@ public class MyInfoFragment extends Fragment {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+     //           Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
                     Toast.makeText(getContext(),"修改成功",Toast.LENGTH_SHORT).show();
                 }

@@ -92,7 +92,7 @@ public class Login extends Activity {
                 url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
                 if(response.equals(PublicData.TRUE_RETURN)){
                     //保存账号和密码要本地
                     saveAccountPwToLoacl();

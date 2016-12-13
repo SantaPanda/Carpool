@@ -50,6 +50,7 @@ public class AnalyseJson {
         List<T>list;
         list=gson.fromJson(jsonString,new TypeToken<List<CommentInfo>>(){
         }.getType());
+        Log.d("Analyse.CommentInfoList",jsonString);
         System.out.println(list);
         return list;
     }
