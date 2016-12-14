@@ -14,6 +14,7 @@
         android:layout_height="50dp">
     </TextView>
     <EditText
+        android:textColor="@color/textColor"
         android:id="@+id/message_input"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."

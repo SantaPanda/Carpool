@@ -13,12 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
+        android:textColor="@color/textColor"
         android:textSize="22dp"
         android:id="@+id/case_in_name" android:layout_alignTop="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
         android:text="New Text"
         android:textSize="22dp"
         android:id="@+id/case_in_phone" android:layout_alignBottom="@+id/imageView"

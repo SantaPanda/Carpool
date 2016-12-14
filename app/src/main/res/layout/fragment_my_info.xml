@@ -20,6 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text1"
@@ -28,6 +29,7 @@
             android:layout_alignTop="@+id/my_info_img"
             android:layout_toEndOf="@+id/my_info_img"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -37,6 +39,7 @@
             android:layout_below="@+id/my_info_text1"
             android:layout_toEndOf="@+id/my_info_img"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text3"
@@ -45,6 +48,7 @@
             android:id="@+id/my_info_text3" android:layout_below="@+id/my_info_text"
             android:layout_toEndOf="@+id/my_info_img"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:id="@+id/my_info_name"
@@ -58,6 +62,7 @@
             android:layout_toEndOf="@+id/my_info_text1"
             android:layout_marginEnd="30dp"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="20dp"
@@ -70,6 +75,7 @@
             android:layout_alignBottom="@+id/my_info_text"
             android:layout_alignStart="@+id/my_info_name"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="20dp"
@@ -82,6 +88,7 @@
             android:layout_alignBottom="@+id/my_info_text3"
             android:layout_alignStart="@+id/my_info_nickname"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text4"
@@ -90,6 +97,7 @@
             android:id="@+id/my_info_text4" android:layout_below="@+id/my_info_img"
             android:layout_alignStart="@+id/my_info_img" android:layout_marginTop="10dp"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text5"
@@ -98,6 +106,7 @@
             android:layout_marginTop="20dp" android:layout_below="@+id/my_info_text4"
             android:layout_alignStart="@+id/my_info_text4"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text6"
@@ -106,6 +115,7 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/my_info_text5" android:layout_alignEnd="@+id/my_info_text5"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text7"
@@ -114,6 +124,7 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/my_info_text6" android:layout_alignStart="@+id/my_info_text6"/>
         <TextView
+            android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_info_text8"
@@ -122,10 +133,12 @@
             android:id="@+id/my_info_text8"
             android:layout_below="@+id/my_info_text7" android:layout_alignStart="@+id/my_info_img"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="20dp"
             android:id="@+id/my_info_phone"
+            android:inputType="number"
             android:textColorHint="#AAAAAA"
             android:hint="请输入..."
             android:paddingLeft="10dp"
@@ -135,6 +148,7 @@
             android:layout_alignBottom="@+id/my_info_text4"
             android:layout_toEndOf="@+id/my_info_text4"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="20dp"
@@ -147,11 +161,13 @@
             android:layout_alignBottom="@+id/my_info_text5"
             android:layout_alignStart="@+id/my_info_phone"/>
         <EditText
+            android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="20dp"
             android:id="@+id/my_info_qq"
             android:textColorHint="#AAAAAA"
+            android:inputType="number"
             android:hint="请输入..."
             android:paddingLeft="10dp"
             android:layout_marginEnd="30dp"
@@ -200,6 +216,7 @@
             android:id="@+id/my_info_credit" android:layout_alignBottom="@+id/my_info_bad"
             android:layout_toEndOf="@+id/my_info_bad"/>
         <EditText
+            android:textColor="@color/textColor"
             android:lines="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -234,7 +251,8 @@
             android:background="#00000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/exit" android:layout_below="@+id/my_info_show_me"
+            android:id="@+id/exit"
+            android:layout_below="@+id/my_info_show_me"
             android:layout_toEndOf="@+id/my_info_change"/>
     </RelativeLayout>
 

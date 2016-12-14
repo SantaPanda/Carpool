@@ -20,6 +20,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="1dp"/>
     <TextView
+        android:textColor="@color/textColor"
         android:id="@+id/forget_num"
         android:textSize="25dp"
         android:layout_marginLeft="30dp"
@@ -30,6 +31,7 @@
         android:layout_below="@+id/forget_top"
         android:layout_alignParentStart="true"/>
     <EditText
+        android:textColor="@color/textColor"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."
         android:background="@drawable/bg_edittext"
@@ -51,6 +53,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/forget_new_password" />
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forget_new_password"
@@ -58,6 +61,7 @@
         android:id="@+id/forget_new_password" android:layout_below="@+id/forget_num" android:layout_alignEnd="@+id/forget_num"
         android:layout_marginTop="10dp"/>
     <EditText
+        android:textColor="@color/textColor"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."
         android:background="@drawable/bg_edittext"
@@ -68,6 +72,7 @@
         android:id="@+id/forget_new_password_input" android:layout_alignTop="@+id/forget_new_password"
         android:layout_alignStart="@+id/forget_num_input"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forget_password_again"
@@ -76,6 +81,7 @@
         android:id="@+id/forget_password_again" android:layout_below="@+id/forget_new_password"
         android:layout_alignEnd="@+id/forget_new_password"/>
     <EditText
+        android:textColor="@color/textColor"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."
         android:background="@drawable/bg_edittext"

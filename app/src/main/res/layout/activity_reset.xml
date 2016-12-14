@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
     <TextView
+        android:textColor="@color/textColor"
         android:textSize="25dp"
         android:text="@string/reset_new_password"
         android:layout_width="wrap_content"
@@ -22,6 +23,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/reset_new_password"/>
     <EditText
+        android:textColor="@color/textColor"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."
         android:background="@drawable/bg_edittext"
@@ -33,6 +35,7 @@
         android:layout_alignBottom="@+id/reset_new_password"
         android:layout_toEndOf="@+id/reset_new_password"/>
     <TextView
+        android:textColor="@color/textColor"
         android:id="@+id/reset_in_new_password"
         android:textSize="25dp"
         android:text="@string/reset_in_new_password"
@@ -42,6 +45,7 @@
         android:layout_toStartOf="@+id/reset_new_password_input"
         android:layout_marginTop="20dp"/>
     <EditText
+        android:textColor="@color/textColor"
         android:textColorHint="#AAAAAA"
         android:hint="请输入..."
         android:background="@drawable/bg_edittext"

@@ -85,6 +85,8 @@ public class MyInfoFragment extends Fragment {
         componentInit();
         getAccount();
         login();
+        my_info_change_ok.setVisibility(View.INVISIBLE);
+        changeFalseEdit();
         if(!account.equals("")){
             myInfoServer();
         }
@@ -130,6 +132,7 @@ public class MyInfoFragment extends Fragment {
 
     //设置所有EditText是否可编辑
     private void changeEdit(boolean flag){
+        /*
         PublicData.changeEditState(flag,my_info_name);
         PublicData.changeEditState(flag,my_info_nickname);
         PublicData.changeEditState(flag,my_info_sex);
@@ -137,6 +140,47 @@ public class MyInfoFragment extends Fragment {
         PublicData.changeEditState(flag,my_info_wechat);
         PublicData.changeEditState(flag,my_info_qq);
         PublicData.changeEditState(flag,my_info_show_me);
+        */
+
+    }
+    private void changeFalseEdit(){
+        my_info_name.setFocusable(false);
+        my_info_name.setFocusableInTouchMode(false);
+        my_info_nickname.setFocusable(false);
+        my_info_nickname.setFocusableInTouchMode(false);
+        my_info_sex.setFocusable(false);
+        my_info_sex.setFocusableInTouchMode(false);
+        my_info_phone.setFocusable(false);
+        my_info_phone.setFocusableInTouchMode(false);
+        my_info_wechat.setFocusable(false);
+        my_info_wechat.setFocusableInTouchMode(false);
+        my_info_qq.setFocusable(false);
+        my_info_qq.setFocusableInTouchMode(false);
+        my_info_show_me.setFocusable(false);
+        my_info_show_me.setFocusableInTouchMode(false);
+    }
+    private void changeTrueEdit(){
+        my_info_name.setFocusableInTouchMode(true);
+        my_info_name.setFocusable(true);
+        my_info_name.requestFocus();
+        my_info_nickname.setFocusableInTouchMode(true);
+        my_info_nickname.setFocusable(true);
+        my_info_nickname.requestFocus();
+        my_info_sex.setFocusableInTouchMode(true);
+        my_info_sex.setFocusable(true);
+        my_info_sex.requestFocus();
+        my_info_phone.setFocusableInTouchMode(true);
+        my_info_phone.setFocusable(true);
+        my_info_phone.requestFocus();
+        my_info_wechat.setFocusableInTouchMode(true);
+        my_info_wechat.setFocusable(true);
+        my_info_wechat.requestFocus();
+        my_info_qq.setFocusableInTouchMode(true);
+        my_info_qq.setFocusable(true);
+        my_info_qq.requestFocus();
+        my_info_show_me.setFocusableInTouchMode(true);
+        my_info_show_me.setFocusable(true);
+        my_info_show_me.requestFocus();
     }
 
     private void getPeopleInfo(String response){
@@ -354,10 +398,15 @@ public class MyInfoFragment extends Fragment {
                    // getActivity().finish();
                     break;
                 case R.id.my_info_change_ok:
-
                     changeMyInfoServer();
+                    my_info_change_ok.setVisibility(View.INVISIBLE);
+                    my_info_change.setVisibility(View.VISIBLE);
+                    changeFalseEdit();
                     break;
                 case R.id.my_info_change:
+                    changeTrueEdit();
+                    my_info_change.setVisibility(View.INVISIBLE);
+                    my_info_change_ok.setVisibility(View.VISIBLE);
                     break;
                 default:
                     break;

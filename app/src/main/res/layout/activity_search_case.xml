@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/case_publish_img"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="发起人：张三"
@@ -17,6 +18,7 @@
         android:id="@+id/case_public_name" android:layout_alignTop="@+id/case_publish_img"
         android:layout_toEndOf="@+id/case_publish_img"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="信用度:"
@@ -31,6 +33,7 @@
         android:id="@+id/case_public_good" android:layout_alignBottom="@+id/case_public_credit"
         android:layout_toEndOf="@+id/case_public_credit"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,6 +42,7 @@
         android:id="@+id/case_people"
         android:layout_alignBottom="@+id/case_public_name" android:layout_toEndOf="@+id/case_public_name"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="8"
@@ -54,6 +58,7 @@
         android:id="@+id/case_public_bad" android:layout_alignBottom="@+id/case_public_good"
         android:layout_toEndOf="@+id/case_good_show"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
@@ -71,6 +76,7 @@
         android:id="@+id/case_credit_show" android:layout_alignBottom="@+id/case_bad_show"
         android:layout_toEndOf="@+id/case_bad_show"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,6 +85,7 @@
         android:id="@+id/case_start" android:layout_below="@+id/case_publish_img"
         android:layout_alignStart="@+id/case_publish_img" android:layout_marginTop="36dp"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10:30"
@@ -94,6 +101,7 @@
         android:layout_marginStart="10dp" android:layout_below="@+id/case_publish_img"
         android:layout_toEndOf="@+id/case_time" android:layout_marginTop="27dp"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="潮汕站"
@@ -102,6 +110,7 @@
         android:layout_marginLeft="20dp"
         android:layout_alignTop="@+id/case_start" android:layout_toEndOf="@+id/case_right_img"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="出发日期:"
@@ -109,12 +118,14 @@
         android:id="@+id/case_text1" android:layout_below="@+id/case_right_img"
         android:layout_alignStart="@+id/case_start" android:layout_marginTop="20dp"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/case_day" android:layout_alignBottom="@+id/case_text1"
         android:layout_toEndOf="@+id/case_text1"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="联系方式:"
@@ -123,13 +134,14 @@
         android:id="@+id/case_text2" android:layout_below="@+id/case_text1"
         android:layout_alignStart="@+id/case_text1"/>
     <TextView
-
+        android:textColor="@color/textColor"
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/case_phone"
         android:layout_alignBottom="@+id/case_text2" android:layout_toEndOf="@+id/case_text2"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -140,12 +152,14 @@
         android:id="@+id/case_text3" android:layout_below="@+id/case_text2"
         android:layout_alignEnd="@+id/case_text2"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/case_pay"
         android:layout_alignBottom="@+id/case_text3" android:layout_toEndOf="@+id/case_text3"/>
     <Button
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="其他拼车成员"
@@ -154,6 +168,7 @@
         android:id="@+id/case_others"
         android:layout_below="@+id/case_show" android:layout_alignParentStart="true"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -164,6 +179,7 @@
         android:id="@+id/case_text4" android:layout_below="@+id/case_text3"
         android:layout_alignStart="@+id/case_text3"/>
     <TextView
+        android:textColor="@color/textColor"
         android:layout_marginRight="30dp"
         android:lines="4"
         android:layout_width="match_parent"
@@ -175,6 +191,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/case_in_listview" android:layout_below="@+id/case_others" android:layout_alignParentStart="true"/>
     <Button
+        android:textColor="@color/white"
         android:layout_below="@+id/case_in_listview" android:layout_alignParentStart="true"
         android:gravity="center"
         android:text="留言"

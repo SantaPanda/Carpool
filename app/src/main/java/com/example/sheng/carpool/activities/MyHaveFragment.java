@@ -44,7 +44,7 @@ public class MyHaveFragment extends Fragment {
     private View view;
     private Button my_have_publish;
     private Button my_have_join;
-    private Button my_have_done;
+   // private Button my_have_done;
     private TextView my_have_name;
     //ListView用的
     private CarpoolInfoListAdapter carpoolInfoListAdapter1,carpoolInfoListAdapter2,carpoolInfoListAdapter3;
@@ -71,6 +71,7 @@ public class MyHaveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("response","response");
         view = inflater.inflate(R.layout.fragment_my_have, container, false);
         componentInit();
         getAccount();
@@ -82,7 +83,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList1.get(i);
-                Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 //String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
                 String carpool = new Gson().toJson(carpoolInfo);
@@ -100,7 +101,7 @@ public class MyHaveFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CarpoolInfo carpoolInfo = carpoolInfoArrayList2.get(i);
-                Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
+          //      Toast.makeText(getContext(),""+carpoolInfo.getCARPOOLID(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 //String carpool = JsonOperation.jsonObjectStructure(carpoolInfo);
                 String carpool = new Gson().toJson(carpoolInfo);
@@ -109,7 +110,7 @@ public class MyHaveFragment extends Fragment {
                 getContext().startActivity(intent);
             }
         });
-
+/*
         carpoolInfoListAdapter3 = new CarpoolInfoListAdapter(getContext(),
                 R.layout.search_result,carpoolInfoArrayList3);
         ListView listView3 = (ListView)view.findViewById(R.id.my_have_done_listView);
@@ -126,7 +127,9 @@ public class MyHaveFragment extends Fragment {
                 getContext().startActivity(intent);
             }
         });
+        */
         return view;
+
     }
 
     private void componentInit(){
@@ -135,8 +138,8 @@ public class MyHaveFragment extends Fragment {
         my_have_publish.setOnClickListener(new buttonListener());
         my_have_join = (Button)view.findViewById(R.id.my_have_join);
         my_have_join.setOnClickListener(new buttonListener());
-        my_have_done = (Button)view.findViewById(R.id.my_have_done);
-        my_have_done.setOnClickListener(new buttonListener());
+       // my_have_done = (Button)view.findViewById(R.id.my_have_done);
+    //    my_have_done.setOnClickListener(new buttonListener());
     }
 
 
