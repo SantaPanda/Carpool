@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.format.DateFormat;
@@ -153,8 +154,18 @@ public class PublishFragment extends Fragment {
             switch (v.getId()){
                 case R.id.publish_sure:
                     getAccount();
+
+                    getValue();
+
                     if(!account.equals("")){
-                        publishServer();
+                        if(!str_publish_people.equals("")&&!str_publish_have_people.equals("")){
+                            if(Integer.parseInt(str_publish_people)>Integer.parseInt(str_publish_have_people)){
+                                publishServer();
+                            }
+                            else {
+                                Toast.makeText(getContext(),"已有人数不少于总人数,不能发布",Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                     else {
                         PublicData.login(getContext());

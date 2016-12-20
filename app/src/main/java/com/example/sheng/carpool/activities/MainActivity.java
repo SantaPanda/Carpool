@@ -4,6 +4,9 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -39,6 +42,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
     }
+    //创建选项菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=new MenuInflater(this);		//实例化一个MenuInflater对象
+        inflater.inflate(R.menu.main_page_optionmenu, menu);		//解析菜单文件
+        //getMenuInflater().inflate(R.menu.main_page_optionmenu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.about){
+
+        }
+        else if(item.getItemId()==R.id.exit){
+
+        }
+        return true;
+    }
+
     /**
      * 初始化组件
      */

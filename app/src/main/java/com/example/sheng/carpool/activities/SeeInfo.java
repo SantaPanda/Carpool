@@ -89,7 +89,13 @@ public class SeeInfo extends Activity {
     }
 
     private void setValue(){
-        see_info_name.setText(myInfo.getName());
+
+        if(!myInfo.getName().equals("")){
+            see_info_name.setText("发起人:"+myInfo.getName());
+        }else {
+            see_info_name.setText("发起人:"+myInfo.getAccount());
+        }
+
         see_info_nickname.setText(myInfo.getNickname());
         see_info_sex.setText(myInfo.getSex());
         see_info_phone.setText(myInfo.getPhone());
